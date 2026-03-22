@@ -1,0 +1,84 @@
+.admin-segment {
+  --background: #F5E6D3;
+}
+
+.admin-loading { display: flex; justify-content: center; padding: 48px; }
+.admin-error { background: #fff0f0; padding: 12px 16px; margin: 12px; border-radius: 8px; }
+.admin-empty { text-align: center; padding: 48px; color: #8B4513; font-size: 16px; }
+
+.admin-orders-list { padding: 12px; }
+
+.admin-order-card {
+  background: #FFF8F0;
+  border-radius: 16px;
+  padding: 16px;
+  margin-bottom: 12px;
+  box-shadow: 0 3px 12px rgba(44,18,0,0.1);
+  border-left: 4px solid #5C2E00;
+}
+
+.admin-order-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 12px;
+}
+
+.admin-order-id {
+  display: block;
+  font-size: 16px;
+  font-weight: 800;
+  color: #2C1200;
+}
+
+.admin-order-user {
+  display: block;
+  font-size: 12px;
+  color: #8B4513;
+  margin-top: 2px;
+}
+
+.admin-order-time { font-size: 11px; color: #C47A45; }
+
+.admin-order-items { margin-bottom: 10px; }
+
+.admin-item-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 4px 0;
+  border-bottom: 1px solid #F5E6D3;
+  font-size: 13px;
+}
+
+.admin-item-name { flex: 1; color: #2C1200; }
+.admin-item-qty { color: #8B4513; margin: 0 12px; }
+.admin-item-price { font-weight: 700; color: #5C2E00; }
+
+.admin-order-notes {
+  background: #F5E6D3;
+  border-radius: 8px;
+  padding: 8px 12px;
+  font-size: 12px;
+  color: #5C2E00;
+  margin-bottom: 10px;
+}
+
+.admin-order-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.admin-order-total {
+  font-size: 18px;
+  font-weight: 800;
+  color: #5C2E00;
+}
+
+.admin-actions { display: flex; gap: 8px; }
+
+.admin-btn {
+  --border-radius: 10px;
+  font-size: 13px;
+  font-weight: 700;
+}

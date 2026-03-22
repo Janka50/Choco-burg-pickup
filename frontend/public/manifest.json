@@ -1,0 +1,9 @@
+{
+  "short_name": "ChocoShop",
+  "name": "ChocoShop — Chocolate & Ice Cream",
+  "icons": [],
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#3D1A00",
+  "background_color": "#3D1A00"
+}

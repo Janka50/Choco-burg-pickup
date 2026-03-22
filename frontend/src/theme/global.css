@@ -1,0 +1,247 @@
+/* ============================================================
+   ChocoShop Theme — Chocolate Brown + Cream
+   ============================================================ */
+
+:root {
+  /* Brand Colors */
+  --choco-dark: #1a0a00;
+  --choco-primary: #3D1A00;
+  --choco-medium: #6B3A2A;
+  --choco-light: #A0522D;
+  --choco-caramel: #C8884A;
+  --choco-gold: #D4A853;
+
+  /* Backgrounds */
+  --cream-bg: #FAF7F2;
+  --cream-card: #FDF9F4;
+  --cream-border: #EDE5D8;
+
+  /* Text */
+  --text-dark: #1a0a00;
+  --text-medium: #4a2e1a;
+  --text-light: #8b6347;
+  --text-muted: #a08060;
+
+  /* Status Colors */
+  --status-pending: #E8A000;
+  --status-approved: #2E7D4F;
+  --status-rejected: #C0392B;
+  --status-completed: #1565C0;
+  --status-cancelled: #757575;
+
+  /* Ionic overrides */
+  --ion-background-color: var(--cream-bg);
+  --ion-card-background: var(--cream-card);
+  --ion-color-primary: var(--choco-primary);
+  --ion-color-primary-rgb: 61, 26, 0;
+  --ion-color-primary-contrast: #ffffff;
+  --ion-color-primary-contrast-rgb: 255, 255, 255;
+  --ion-color-primary-shade: #351600;
+  --ion-color-primary-tint: #502200;
+  --ion-toolbar-background: var(--choco-primary);
+  --ion-toolbar-color: #fff;
+  --ion-tab-bar-background: var(--choco-dark);
+  --ion-tab-bar-color: rgba(255,255,255,0.5);
+  --ion-tab-bar-color-selected: var(--choco-gold);
+  --ion-font-family: 'Georgia', 'Times New Roman', serif;
+}
+
+/* ============================================================
+   Global Styles
+   ============================================================ */
+* {
+  box-sizing: border-box;
+}
+
+ion-content {
+  --background: var(--cream-bg);
+}
+
+ion-toolbar {
+  --background: var(--choco-primary);
+  --color: #fff;
+  --border-width: 0;
+}
+
+ion-tab-bar {
+  --background: var(--choco-dark);
+  border-top: 1px solid rgba(255,255,255,0.1);
+}
+
+ion-tab-button {
+  --color: rgba(255,255,255,0.5);
+  --color-selected: var(--choco-gold);
+}
+
+/* ============================================================
+   Cards
+   ============================================================ */
+.choco-card {
+  background: var(--cream-card);
+  border-radius: 16px;
+  border: 1px solid var(--cream-border);
+  box-shadow: 0 2px 12px rgba(61, 26, 0, 0.08);
+  overflow: hidden;
+  margin: 8px 16px;
+}
+
+/* ============================================================
+   Buttons
+   ============================================================ */
+.btn-primary {
+  --background: var(--choco-primary);
+  --background-activated: var(--choco-medium);
+  --border-radius: 12px;
+  --color: #fff;
+  --padding-top: 14px;
+  --padding-bottom: 14px;
+  font-weight: 600;
+  font-size: 16px;
+  letter-spacing: 0.3px;
+}
+
+.btn-caramel {
+  --background: var(--choco-caramel);
+  --background-activated: var(--choco-light);
+  --border-radius: 12px;
+  --color: #fff;
+  font-weight: 600;
+}
+
+/* ============================================================
+   Status Badges
+   ============================================================ */
+.status-badge {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+.status-PENDING { background: #FFF3CD; color: #856404; }
+.status-APPROVED { background: #D4EDDA; color: #155724; }
+.status-REJECTED { background: #F8D7DA; color: #721c24; }
+.status-COMPLETED { background: #CCE5FF; color: #004085; }
+.status-CANCELLED { background: #E2E3E5; color: #383d41; }
+
+/* ============================================================
+   Product Cards
+   ============================================================ */
+.product-card {
+  background: var(--cream-card);
+  border-radius: 16px;
+  border: 1px solid var(--cream-border);
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(61, 26, 0, 0.06);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  cursor: pointer;
+}
+
+.product-card:active {
+  transform: scale(0.98);
+  box-shadow: 0 1px 4px rgba(61, 26, 0, 0.04);
+}
+
+.product-card-img {
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
+  background: linear-gradient(135deg, #8B4513 0%, #D2691E 100%);
+}
+
+.product-card-img-placeholder {
+  width: 100%;
+  height: 160px;
+  background: linear-gradient(135deg, #3D1A00 0%, #A0522D 60%, #C8884A 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 48px;
+}
+
+.product-card-body {
+  padding: 12px 14px 14px;
+}
+
+.product-card-name {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text-dark);
+  margin: 0 0 4px;
+}
+
+.product-card-desc {
+  font-size: 12px;
+  color: var(--text-light);
+  margin: 0 0 10px;
+  line-height: 1.4;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+.product-card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.product-price {
+  font-size: 17px;
+  font-weight: 800;
+  color: var(--choco-primary);
+  font-family: Georgia, serif;
+}
+
+/* ============================================================
+   Empty States
+   ============================================================ */
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 24px;
+  text-align: center;
+}
+
+.empty-state-icon {
+  font-size: 64px;
+  margin-bottom: 16px;
+}
+
+.empty-state-title {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--text-dark);
+  margin: 0 0 8px;
+}
+
+.empty-state-text {
+  font-size: 14px;
+  color: var(--text-muted);
+  margin: 0;
+  max-width: 240px;
+}
+
+/* ============================================================
+   Misc
+   ============================================================ */
+.section-title {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  padding: 16px 16px 8px;
+}
+
+.price-text {
+  font-family: Georgia, serif;
+  font-weight: 700;
+  color: var(--choco-primary);
+}

@@ -1,0 +1,30 @@
+.shop-search {
+  --background: #F5E6D3;
+  --border-radius: 12px;
+  --color: #2C1200;
+  --placeholder-color: #C47A45;
+  padding: 4px 8px;
+}
+
+.shop-loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 200px;
+}
+
+.shop-error {
+  text-align: center;
+  padding: 32px;
+}
+
+.shop-empty {
+  text-align: center;
+  padding: 64px 32px;
+  color: #8B4513;
+  font-size: 18px;
+}
+
+.product-grid {
+  padding: 8px;
+}
