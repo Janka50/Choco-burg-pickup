@@ -108,6 +108,15 @@ const AppRoutes: React.FC = () => {
       <Route path="/shop" render={() =>
         isAuthenticated && user?.role === 'customer' ? <CustomerTabs /> : <Redirect to="/login" />
       } />
+      <Route path="/cart" render={() =>
+        isAuthenticated && user?.role === 'customer' ? <CustomerTabs /> : <Redirect to="/login" />
+      } />
+      <Route path="/orders" render={() =>
+        isAuthenticated && user?.role === 'customer' ? <CustomerTabs /> : <Redirect to="/login" />
+      } />
+      <Route path="/profile" render={() =>
+        isAuthenticated && user?.role === 'customer' ? <CustomerTabs /> : <Redirect to="/login" />
+      } />
       <Route path="/admin" render={() =>
         isAuthenticated && user?.role === 'admin' ? <AdminTabs /> : <Redirect to="/login" />
       } />

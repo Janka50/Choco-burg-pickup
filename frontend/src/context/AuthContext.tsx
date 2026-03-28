@@ -49,11 +49,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     setUser(data.user);
   }, []);
 
-  const logout = useCallback(async () => {
-    const refresh = localStorage.getItem('refresh_token');
-    if (refresh) {
-      try { await authService.logout(refresh); } catch { /* ignore */ }
-    }
+  const logout = useCallback(() => {
     localStorage.clear();
     setUser(null);
   }, []);

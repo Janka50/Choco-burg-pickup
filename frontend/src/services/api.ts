@@ -70,6 +70,7 @@ export const productService = {
 
 // Orders
 export const orderService = {
+  // Customer
   list: () => api.get('/orders/'),
   create: (items: { product_id: number; quantity: number }[], notes?: string) =>
     api.post('/orders/', { items, notes }),

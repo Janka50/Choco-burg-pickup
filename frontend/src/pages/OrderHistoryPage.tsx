@@ -1,19 +1,25 @@
 import React, { useState, useEffect, useRef } from 'react';
 import {
   IonPage, IonContent, IonHeader, IonToolbar, IonTitle,
-  IonList, IonSpinner, IonText, IonRefresher, IonRefresherContent,
-  IonBadge, IonButton,
+  IonSpinner, IonRefresher, IonRefresherContent, IonButton,
 } from '@ionic/react';
 import { orderService } from '../services/api';
 import { Order, OrderStatus } from '../types';
-import './OrderHistoryPage.css';
 
 const STATUS_COLOR: Record<OrderStatus, string> = {
-  PENDING: 'warning',
-  APPROVED: 'success',
-  REJECTED: 'danger',
-  COMPLETED: 'primary',
-  CANCELLED: 'medium',
+  PENDING: '#E67E22',
+  APPROVED: '#2D7A3A',
+  REJECTED: '#C0392B',
+  COMPLETED: '#1A5DB5',
+  CANCELLED: '#666',
+};
+
+const STATUS_BG: Record<OrderStatus, string> = {
+  PENDING: '#FEF9E7',
+  APPROVED: '#EAF7EC',
+  REJECTED: '#FDEDEC',
+  COMPLETED: '#EAF2FF',
+  CANCELLED: '#F5F5F5',
 };
 
 const STATUS_ICON: Record<OrderStatus, string> = {
@@ -44,7 +50,6 @@ const OrderHistoryPage: React.FC = () => {
 
   useEffect(() => {
     fetchOrders();
-    // Poll every 20 seconds for live status updates
     pollRef.current = window.setInterval(fetchOrders, 20000);
     return () => { if (pollRef.current) clearInterval(pollRef.current); };
   }, []);
@@ -57,66 +62,65 @@ const OrderHistoryPage: React.FC = () => {
   return (
     <IonPage>
       <IonHeader>
-        <IonToolbar>
-          <IonTitle>My Orders</IonTitle>
-        </IonToolbar>
+        <IonToolbar><IonTitle>My Orders</IonTitle></IonToolbar>
       </IonHeader>
-
       <IonContent>
         <IonRefresher slot="fixed" onIonRefresh={handleRefresh}>
           <IonRefresherContent />
         </IonRefresher>
 
-        <div className="poll-indicator">
-          <span>🔄 Auto-refreshing every 20s</span>
-        </div>
+        <div style={{ padding: 16, maxWidth: 600, margin: '0 auto' }}>
+          {loading && (
+            <div style={{ display: 'flex', justifyContent: 'center', padding: 40 }}>
+              <IonSpinner name="crescent" />
+            </div>
+          )}
 
-        {loading && (
-          <div className="orders-loading"><IonSpinner name="crescent" color="primary" /></div>
-        )}
+          {error && (
+            <div style={{ color: '#C0392B', background: '#FDEDEC', padding: '10px 14px', borderRadius: 8 }}>
+              {error}
+            </div>
+          )}
 
-        {error && <div className="orders-error"><IonText color="danger">{error}</IonText></div>}
+          {!loading && orders.length === 0 && (
+            <div style={{ textAlign: 'center', padding: '60px 20px', color: '#7A5C45' }}>
+              <div style={{ fontSize: 56 }}>📦</div>
+              <h3 style={{ fontFamily: 'serif' }}>No orders yet</h3>
+              <p>Place your first order!</p>
+              <IonButton routerLink="/shop">Browse Menu</IonButton>
+            </div>
+          )}
 
-        {!loading && orders.length === 0 && (
-          <div className="orders-empty">
-            <div>📦</div>
-            <p>No orders yet. Place your first order!</p>
-            <IonButton routerLink="/shop" className="orders-shop-btn">Browse Menu</IonButton>
-          </div>
-        )}
-
-        <div className="orders-list">
           {orders.map(order => (
-            <div key={order.id} className="order-card">
-              <div className="order-card-header">
-                <span className="order-id">Order #{order.id}</span>
-                <IonBadge color={STATUS_COLOR[order.status]}>
+            <div key={order.id} style={{ background: 'white', borderRadius: 16, padding: 16, marginBottom: 14, boxShadow: '0 2px 8px rgba(0,0,0,0.07)' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 10 }}>
+                <div>
+                  <h3 style={{ fontFamily: 'serif', margin: '0 0 4px', fontSize: 17 }}>Order #{order.id}</h3>
+                  <p style={{ margin: 0, fontSize: 12, color: '#7A5C45' }}>
+                    {new Date(order.created_at).toLocaleDateString('en-NG', { day: 'numeric', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' })}
+                  </p>
+                </div>
+                <span style={{ background: STATUS_BG[order.status], color: STATUS_COLOR[order.status], padding: '4px 10px', borderRadius: 20, fontSize: 12, fontWeight: 600 }}>
                   {STATUS_ICON[order.status]} {order.status}
-                </IonBadge>
+                </span>
               </div>
 
-              <div className="order-items-list">
+              <div style={{ borderTop: '1px solid #E8D5BE', borderBottom: '1px solid #E8D5BE', padding: '8px 0', marginBottom: 10 }}>
                 {order.items.map(item => (
-                  <div key={item.id} className="order-item-row">
-                    <span>{item.product_name}</span>
-                    <span className="order-item-qty">x{item.quantity}</span>
-                    <span className="order-item-price">₦{parseFloat(item.subtotal).toLocaleString()}</span>
+                  <div key={item.id} style={{ display: 'flex', justifyContent: 'space-between', fontSize: 13, marginBottom: 4 }}>
+                    <span>{item.product_name} x{item.quantity}</span>
+                    <span style={{ color: '#7A5C45' }}>₦{parseFloat(item.subtotal).toLocaleString()}</span>
                   </div>
                 ))}
               </div>
 
-              <div className="order-card-footer">
-                <span className="order-date">
-                  {new Date(order.created_at).toLocaleDateString('en-NG', {
-                    day: 'numeric', month: 'short', year: 'numeric',
-                    hour: '2-digit', minute: '2-digit',
-                  })}
-                </span>
-                <span className="order-total">₦{parseFloat(order.total_price).toLocaleString()}</span>
+              <div style={{ display: 'flex', justifyContent: 'space-between', fontWeight: 700 }}>
+                <span style={{ color: '#7A5C45', fontSize: 13 }}>{order.items.length} item{order.items.length !== 1 ? 's' : ''}</span>
+                <span style={{ color: '#6B3A1F', fontSize: 16 }}>₦{parseFloat(order.total_price).toLocaleString()}</span>
               </div>
 
               {order.status === 'APPROVED' && (
-                <div className="order-pickup-notice">
+                <div style={{ marginTop: 10, background: '#EAF7EC', color: '#2D7A3A', borderRadius: 8, padding: '8px 12px', fontSize: 13, fontWeight: 600 }}>
                   🎉 Your order is ready! Come pick it up.
                 </div>
               )}
