@@ -8,9 +8,11 @@ from .models import User
 
 
 class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
+    username_field = "email"
+
     def validate(self, attrs):
         data = super().validate(attrs)
-        data['user'] = UserSerializer(self.user).data
+        data["user"] = UserSerializer(self.user).data
         return data
 
 
