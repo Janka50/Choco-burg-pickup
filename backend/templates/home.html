@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>ChocoDelight — Premium Chocolate & Ice Cream</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --choco-dark:   #1A0800;
+      --choco-rich:   #3D1C02;
+      --choco-medium: #6B3A1F;
+      --choco-light:  #A0522D;
+      --choco-warm:   #C8905A;
+      --cream:        #FDF6EC;
+      --cream-dark:   #F5E6D3;
+      --text-muted:   #7A5C45;
+    }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: var(--cream);
+      color: var(--choco-dark);
+    }
+
+    /* NAVBAR */
+    nav {
+      background: var(--choco-rich);
+      padding: 0 32px;
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .nav-brand {
+      color: var(--cream);
+      font-size: 22px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      text-decoration: none;
+    }
+    .nav-brand span { color: var(--choco-warm); }
+    .nav-links { display: flex; gap: 12px; }
+    .nav-links a {
+      color: var(--cream);
+      text-decoration: none;
+      padding: 8px 18px;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 500;
+      transition: background 0.2s;
+    }
+    .nav-links a:hover { background: rgba(255,255,255,0.1); }
+    .nav-links a.btn-outline {
+      border: 1px solid rgba(255,255,255,0.4);
+    }
+    .nav-links a.btn-solid {
+      background: var(--choco-warm);
+      color: var(--choco-dark);
+      font-weight: 600;
+    }
+    .nav-links a.btn-solid:hover { background: #d4a06a; }
+
+    /* HERO */
+    .hero {
+      background: linear-gradient(135deg, var(--choco-dark) 0%, var(--choco-rich) 60%, var(--choco-medium) 100%);
+      color: var(--cream);
+      padding: 100px 32px;
+      text-align: center;
+    }
+    .hero-emoji { font-size: 64px; margin-bottom: 20px; }
+    .hero h1 {
+      font-size: clamp(32px, 6vw, 56px);
+      font-weight: 800;
+      line-height: 1.15;
+      margin-bottom: 20px;
+    }
+    .hero h1 span { color: var(--choco-warm); }
+    .hero p {
+      font-size: 18px;
+      color: rgba(253,246,236,0.8);
+      max-width: 520px;
+      margin: 0 auto 36px;
+      line-height: 1.7;
+    }
+    .hero-btns { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+    .btn-primary {
+      background: var(--choco-warm);
+      color: var(--choco-dark);
+      padding: 14px 32px;
+      border-radius: 10px;
+      font-size: 16px;
+      font-weight: 700;
+      text-decoration: none;
+      transition: transform 0.2s, background 0.2s;
+    }
+    .btn-primary:hover { background: #d4a06a; transform: translateY(-2px); }
+    .btn-secondary {
+      background: transparent;
+      color: var(--cream);
+      padding: 14px 32px;
+      border-radius: 10px;
+      font-size: 16px;
+      font-weight: 600;
+      text-decoration: none;
+      border: 2px solid rgba(255,255,255,0.4);
+      transition: background 0.2s;
+    }
+    .btn-secondary:hover { background: rgba(255,255,255,0.1); }
+
+    /* FEATURES */
+    .features {
+      padding: 80px 32px;
+      background: var(--cream);
+      text-align: center;
+    }
+    .features h2 {
+      font-size: 32px;
+      font-weight: 800;
+      margin-bottom: 8px;
+      color: var(--choco-dark);
+    }
+    .features .subtitle {
+      color: var(--text-muted);
+      margin-bottom: 48px;
+      font-size: 16px;
+    }
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 24px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    .feature-card {
+      background: white;
+      border-radius: 16px;
+      padding: 32px 24px;
+      box-shadow: 0 2px 16px rgba(61,28,2,0.08);
+      transition: transform 0.2s;
+    }
+    .feature-card:hover { transform: translateY(-4px); }
+    .feature-icon { font-size: 40px; margin-bottom: 14px; }
+    .feature-card h3 { font-size: 18px; font-weight: 700; margin-bottom: 8px; }
+    .feature-card p { color: var(--text-muted); font-size: 14px; line-height: 1.6; }
+
+    /* BUSINESS INFO */
+    .info-section {
+      background: var(--choco-rich);
+      color: var(--cream);
+      padding: 80px 32px;
+    }
+    .info-section h2 {
+      text-align: center;
+      font-size: 32px;
+      font-weight: 800;
+      margin-bottom: 48px;
+      color: var(--cream);
+    }
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 32px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    .info-item { display: flex; gap: 16px; align-items: flex-start; }
+    .info-icon {
+      font-size: 28px;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+    .info-item h4 {
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--choco-warm);
+      margin-bottom: 6px;
+    }
+    .info-item p {
+      font-size: 15px;
+      color: rgba(253,246,236,0.85);
+      line-height: 1.6;
+    }
+
+    /* SOCIAL */
+    .social-section {
+      background: var(--cream-dark);
+      padding: 60px 32px;
+      text-align: center;
+    }
+    .social-section h2 {
+      font-size: 26px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+    .social-section p {
+      color: var(--text-muted);
+      margin-bottom: 28px;
+    }
+    .social-links { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+    .social-link {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 22px;
+      border-radius: 10px;
+      font-size: 14px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: opacity 0.2s, transform 0.2s;
+    }
+    .social-link:hover { opacity: 0.85; transform: translateY(-2px); }
+    .social-link.instagram { background: #E1306C; color: white; }
+    .social-link.twitter   { background: #1DA1F2; color: white; }
+    .social-link.whatsapp  { background: #25D366; color: white; }
+
+    /* FOOTER */
+    footer {
+      background: var(--choco-dark);
+      color: rgba(253,246,236,0.6);
+      text-align: center;
+      padding: 28px 32px;
+      font-size: 13px;
+    }
+    footer strong { color: var(--choco-warm); }
+
+    @media (max-width: 480px) {
+      .hero { padding: 70px 20px; }
+      nav { padding: 0 16px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav>
+    <a class="nav-brand" href="/">Choco<span>Delight</span></a>
+    <div class="nav-links">
+      <a href="/api/auth/login/" class="btn-outline">Login</a>
+      <a href="/api/auth/register/" class="btn-solid">Register</a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-emoji">🍫</div>
+    <h1>Premium <span>Chocolate</span><br>& Ice Cream</h1>
+    <p>Handcrafted chocolates and artisan ice cream made with love.
+       Order online and pick up fresh at our shop.</p>
+    <div class="hero-btns">
+      <a href="/api/auth/login/" class="btn-primary">🛒 Order Now</a>
+      <a href="#info" class="btn-secondary">Find Us</a>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section class="features">
+    <h2>Why Choose Us?</h2>
+    <p class="subtitle">Quality you can taste in every bite</p>
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon">🍫</div>
+        <h3>Premium Ingredients</h3>
+        <p>Only the finest cocoa and dairy sourced from trusted local suppliers.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🤝</div>
+        <h3>Easy Pickup</h3>
+        <p>Order online, get approved, then come pick up your treats fresh from our shop.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">⚡</div>
+        <h3>Fast Approval</h3>
+        <p>Our team reviews every order quickly so you never wait long.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">❤️</div>
+        <h3>Made With Love</h3>
+        <p>Every piece is handcrafted daily with care and passion for chocolate.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- BUSINESS INFO -->
+  <section class="info-section" id="info">
+    <h2>Visit Us</h2>
+    <div class="info-grid">
+      <div class="info-item">
+        <div class="info-icon">📍</div>
+        <div>
+          <h4>Address</h4>
+          <p>No. XX, Street Name<br>City, Nigeria</p>
+        </div>
+      </div>
+      <div class="info-item">
+        <div class="info-icon">📞</div>
+        <div>
+          <h4>Phone</h4>
+          <p>+234 XXX XXX XXXX</p>
+        </div>
+      </div>
+      <div class="info-item">
+        <div class="info-icon">✉️</div>
+        <div>
+          <h4>Email</h4>
+          <p>info@chocodelight.com</p>
+        </div>
+      </div>
+      <div class="info-item">
+        <div class="info-icon">🕐</div>
+        <div>
+          <h4>Opening Hours</h4>
+          <p>Mon – Sun<br>9:00 AM – 9:00 PM</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SOCIAL -->
+  <section class="social-section">
+    <h2>Follow Us</h2>
+    <p>Stay updated with our latest flavours and offers</p>
+    <div class="social-links">
+      <a href="#" class="social-link instagram">📸 Instagram</a>
+      <a href="#" class="social-link twitter">🐦 Twitter / X</a>
+      <a href="https://wa.me/234XXXXXXXXXX" class="social-link whatsapp" target="_blank">💬 WhatsApp</a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <p><strong>ChocoDelight</strong> — Premium Chocolate & Ice Cream</p>
+    <p style="margin-top:6px">&copy; 2026 ChocoDelight. All rights reserved.</p>
+  </footer>
+
+</body>
+</html>
