@@ -11,7 +11,7 @@ import './AuthPages.css';
 const RegisterPage: React.FC = () => {
   const [form, setForm] = useState({
     first_name: '', last_name: '', email: '',
-    phone: '', password: '', password_confirm: '',
+    phone: '', password: '', password2: '',
   });
   const [error, setError] = useState<string | Record<string, string[]>>('');
   const [loading, setLoading] = useState(false);
@@ -58,7 +58,7 @@ const RegisterPage: React.FC = () => {
               </div>
             )}
 
-            {(['first_name', 'last_name', 'email', 'phone', 'password', 'password_confirm'] as const).map(field => (
+            {(['first_name', 'last_name', 'email', 'phone', 'password', 'password2'] as const).map(field => (
               <IonItem key={field} className="auth-input" lines="none">
                 <IonLabel position="stacked">
                   {field.replace('_', ' ').replace(/\b\w/g, c => c.toUpperCase())}
