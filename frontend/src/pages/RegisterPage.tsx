@@ -64,7 +64,7 @@ const RegisterPage: React.FC = () => {
                   {field.replace('_', ' ').replace(/\b\w/g, c => c.toUpperCase())}
                 </IonLabel>
                 <IonInput
-                  type={field.includes('password') && field !== 'password_confirm' || field === 'password_confirm' ? 'password' : field === 'email' ? 'email' : 'text'}
+                  type={field.includes('password') && field !== 'password2' || field === 'password2' ? 'password' : field === 'email' ? 'email' : 'text'}
                   value={form[field]}
                   onIonChange={e => update(field, e.detail.value!)}
                   placeholder={field === 'phone' ? 'Optional' : ''}
