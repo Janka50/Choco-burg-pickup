@@ -8,7 +8,7 @@ interface AuthContextType {
   isAuthenticated: boolean;
   login: (email: string, password: string) => Promise<void>;
   register: (data: {
-    email: string; password: string; password2: string;
+    email: string; password: string; password2?: string; password_confirm?: string;
     first_name: string; last_name: string; phone?: string;
   }) => Promise<void>;
   logout: () => Promise<void>;
@@ -49,7 +49,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     setUser(data.user);
   }, []);
 
-  const logout = useCallback(() => {
+  const logout = useCallback(async () => {
     localStorage.clear();
     setUser(null);
   }, []);

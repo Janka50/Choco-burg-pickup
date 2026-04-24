@@ -63,3 +63,21 @@ export interface ApiError {
   detail?: string;
   [key: string]: unknown;
 }
+
+export interface InventorySummary {
+  total_products: number;
+  low_stock: number;
+  out_of_stock: number;
+  products: Product[];
+}
+
+export interface LoginResponse {
+  access: string;
+  refresh: string;
+  user: User;
+}
+
+export interface PaginatedResponse<T> {
+  count: number;
+  results: T[];
+}
