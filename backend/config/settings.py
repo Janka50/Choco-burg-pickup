@@ -136,3 +136,36 @@ if not DEBUG:
     SECURE_SSL_REDIRECT = True
     SESSION_COOKIE_SECURE = True
     CSRF_COOKIE_SECURE = True
+
+
+# ─── PRODUCTION OVERRIDES ─────────────────────────────────────────────────────
+import os
+from decouple import config as env
+
+# Security
+SECRET_KEY = env('SECRET_KEY', default=SECRET_KEY)
+DEBUG = env('DEBUG', default=False, cast=bool)
+ALLOWED_HOSTS = env('ALLOWED_HOSTS', default='localhost,127.0.0.1').split(',')
+
+# Database override via DATABASE_URL
+import dj_database_url
+db_url = env('DATABASE_URL', default=None)
+if db_url:
+    DATABASES['default'] = dj_database_url.parse(db_url, conn_max_age=600)
+
+# CORS
+CORS_ALLOWED_ORIGINS = env(
+    'CORS_ALLOWED_ORIGINS',
+    default='http://localhost:5173'
+).split(',')
+CORS_ALLOW_CREDENTIALS = True
+
+# Static files via WhiteNoise
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+STATIC_ROOT = BASE_DIR / 'staticfiles'
+
+# Always return JSON errors, never HTML
+REST_FRAMEWORK['DEFAULT_RENDERER_CLASSES'] = ['rest_framework.renderers.JSONRenderer']
+
+# Remove templates dir (API only)
+TEMPLATES[0]['DIRS'] = []
