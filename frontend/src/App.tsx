@@ -19,6 +19,7 @@ import './theme/variables.css';
 import { AuthProvider, useAuth } from './context/AuthContext';
 import { CartProvider } from './context/CartContext';
 
+import LandingPage from './pages/LandingPage';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import ShopPage from './pages/ShopPage';
@@ -103,6 +104,7 @@ const AppRoutes: React.FC = () => {
 
   return (
     <IonRouterOutlet>
+      <Route path="/" component={LandingPage} exact />
       <Route path="/login" component={LoginPage} exact />
       <Route path="/register" component={RegisterPage} exact />
       <Route path="/shop" render={() =>
