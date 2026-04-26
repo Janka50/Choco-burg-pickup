@@ -1,16 +1,22 @@
 import React, { createContext, useContext, useEffect, useState, useCallback } from 'react';
 import { User, AuthTokens } from '../types';
-import { authService } from '../services/api';
+import { authService } from '../services/authService';
+
+export interface RegisterPayload {
+  email: string;
+  password: string;
+  password_confirm: string;
+  first_name: string;
+  last_name: string;
+  phone?: string;
+}
 
 interface AuthContextType {
   user: User | null;
   isLoading: boolean;
   isAuthenticated: boolean;
   login: (email: string, password: string) => Promise<void>;
-  register: (data: {
-    email: string; password: string; password2?: string; password_confirm?: string; [key: string]: string | undefined; password_confirm?: string;
-    first_name: string; last_name: string; phone?: string;
-  }) => Promise<void>;
+  register: (data: RegisterPayload) => Promise<void>;
   logout: () => Promise<void>;
 }
 
@@ -23,8 +29,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   useEffect(() => {
     const token = localStorage.getItem('access_token');
     if (token) {
-      authService.me()
-        .then(({ data }) => setUser(data))
+      authService.getMe()
+        .then((u) => setUser(u))
         .catch(() => localStorage.clear())
         .finally(() => setIsLoading(false));
     } else {
@@ -38,13 +44,13 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   };
 
   const login = useCallback(async (email: string, password: string) => {
-    const { data } = await authService.login(email, password);
+    const data = await authService.login(email, password);
     saveTokens({ access: data.access, refresh: data.refresh });
     setUser(data.user);
   }, []);
 
-  const register = useCallback(async (formData: Parameters<typeof authService.register>[0]) => {
-    const { data } = await authService.register(formData);
+  const register = useCallback(async (formData: RegisterPayload) => {
+    const data = await authService.register(formData);
     saveTokens({ access: data.access, refresh: data.refresh });
     setUser(data.user);
   }, []);
