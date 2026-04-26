@@ -1,23 +1,15 @@
 import { api } from './api';
 import { LoginResponse, User } from '../types';
+import { RegisterPayload } from '../context/AuthContext';
 
 export const authService = {
   async login(email: string, password: string): Promise<LoginResponse> {
     const { data } = await api.post<LoginResponse>('/auth/login/', { email, password });
-    localStorage.setItem('access_token', data.access);
-    localStorage.setItem('refresh_token', data.refresh);
     return data;
   },
 
-  async register(payload: {
-    email: string;
-    password: string;
-    password_confirm?: string;
-    first_name: string;
-    last_name: string;
-    phone?: string;
-  }): Promise<{ user: User }> {
-    const { data } = await api.post('/auth/register/', payload);
+  async register(payload: RegisterPayload): Promise<LoginResponse> {
+    const { data } = await api.post<LoginResponse>('/auth/register/', payload);
     return data;
   },
 
