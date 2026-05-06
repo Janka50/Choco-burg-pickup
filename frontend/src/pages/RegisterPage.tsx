@@ -1,19 +1,15 @@
 import React, { useState } from 'react';
-import {
-  IonContent, IonPage, IonButton, IonInput, IonItem,
-  IonLabel, IonText, IonSpinner, IonRouterLink, IonBackButton, IonButtons, IonHeader, IonToolbar, IonTitle,
-} from '@ionic/react';
+import { IonPage, IonContent } from '@ionic/react';
 import { useHistory } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { AxiosError } from 'axios';
-import './AuthPages.css';
 
 const RegisterPage: React.FC = () => {
   const [form, setForm] = useState({
     first_name: '', last_name: '', email: '',
     phone: '', password: '', password_confirm: '',
   });
-  const [error, setError] = useState<string | Record<string, string[]>>('');
+  const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const { register } = useAuth();
   const history = useHistory();
@@ -22,6 +18,14 @@ const RegisterPage: React.FC = () => {
     setForm(prev => ({ ...prev, [field]: val }));
 
   const handleRegister = async () => {
+    if (!form.email || !form.password || !form.first_name || !form.last_name) {
+      setError('Please fill in all required fields.');
+      return;
+    }
+    if (form.password !== form.password_confirm) {
+      setError('Passwords do not match.');
+      return;
+    }
     setLoading(true);
     setError('');
     try {
@@ -32,7 +36,7 @@ const RegisterPage: React.FC = () => {
       const data = axiosErr.response?.data;
       if (data) {
         const first = Object.values(data).flat()[0];
-        setError(first || 'Registration failed.');
+        setError(typeof first === 'string' ? first : 'Registration failed.');
       } else {
         setError('Registration failed. Try again.');
       }
@@ -41,49 +45,59 @@ const RegisterPage: React.FC = () => {
     }
   };
 
+  const fields: { key: keyof typeof form; label: string; type: string; placeholder?: string }[] = [
+    { key: 'first_name', label: 'First Name', type: 'text' },
+    { key: 'last_name', label: 'Last Name', type: 'text' },
+    { key: 'email', label: 'Email', type: 'email', placeholder: 'you@example.com' },
+    { key: 'phone', label: 'Phone (optional)', type: 'tel', placeholder: '+234 XXX XXX XXXX' },
+    { key: 'password', label: 'Password', type: 'password', placeholder: '••••••••' },
+    { key: 'password_confirm', label: 'Confirm Password', type: 'password', placeholder: '••••••••' },
+  ];
+
   return (
     <IonPage>
-      <IonContent className="auth-content">
-        <div className="auth-container">
-          <div className="auth-header">
-            <div className="auth-logo">🍫</div>
-            <h1 className="auth-title">Choco Pickup</h1>
-            <p className="auth-subtitle">Create your account</p>
+      <IonContent>
+        <div style={{ minHeight: '100vh', background: 'linear-gradient(160deg, #2C1200, #5C2E00)', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: 24 }}>
+          <div style={{ textAlign: 'center', marginBottom: 28 }}>
+            <div style={{ fontSize: 48 }}>🍫</div>
+            <h1 style={{ color: '#FDF6EC', fontFamily: 'serif', fontSize: 26, margin: '8px 0 4px' }}>Chocoburg</h1>
+            <p style={{ color: 'rgba(253,246,236,0.7)', fontSize: 14, margin: 0 }}>Create your account</p>
           </div>
 
-          <div className="auth-card">
+          <div style={{ background: '#FDF6EC', borderRadius: 20, padding: 28, width: '100%', maxWidth: 400 }}>
             {error && (
-              <div className="auth-error">
-                <IonText color="danger">{typeof error === 'string' ? error : JSON.stringify(error)}</IonText>
+              <div style={{ background: '#FDEDEC', color: '#C0392B', padding: '10px 14px', borderRadius: 8, marginBottom: 16, fontSize: 14 }}>
+                {error}
               </div>
             )}
 
-            {(['first_name', 'last_name', 'email', 'phone', 'password', 'password_confirm'] as const).map(field => (
-              <IonItem key={field} className="auth-input" lines="none">
-                <IonLabel position="stacked">
-                  {field.replace('_', ' ').replace(/\b\w/g, c => c.toUpperCase())}
-                </IonLabel>
-                <IonInput
-                  type={field.includes('password') && field !== 'password_confirm' || field === 'password_confirm' ? 'password' : field === 'email' ? 'email' : 'text'}
-                  value={form[field]}
-                  onIonChange={e => update(field, e.detail.value!)}
-                  placeholder={field === 'phone' ? 'Optional' : ''}
+            {fields.map(({ key, label, type, placeholder }) => (
+              <div key={key} style={{ marginBottom: 14 }}>
+                <label style={{ display: 'block', fontSize: 13, fontWeight: 600, color: '#7A5C45', textTransform: 'uppercase', letterSpacing: '0.5px', marginBottom: 6 }}>
+                  {label}
+                </label>
+                <input
+                  type={type}
+                  value={form[key]}
+                  onChange={e => update(key, e.target.value)}
+                  placeholder={placeholder || ''}
+                  style={{ width: '100%', border: '2px solid #E8D5BE', borderRadius: 10, padding: '12px 14px', fontSize: 15, outline: 'none', fontFamily: 'inherit', boxSizing: 'border-box' }}
                 />
-              </IonItem>
+              </div>
             ))}
 
-            <IonButton
-              expand="block"
-              className="auth-button"
+            <button
               onClick={handleRegister}
               disabled={loading}
-            >
-              {loading ? <IonSpinner name="crescent" /> : 'Create Account'}
-            </IonButton>
+              style={{ width: '100%', background: '#3D1C02', color: '#FDF6EC', border: 'none', borderRadius: 12, padding: '14px 24px', fontSize: 15, fontWeight: 600, cursor: loading ? 'not-allowed' : 'pointer', opacity: loading ? 0.7 : 1, marginTop: 8 }}>
+              {loading ? 'Creating account...' : 'Create Account'}
+            </button>
 
-            <p className="auth-link-text">
+            <p style={{ textAlign: 'center', marginTop: 16, fontSize: 14, color: '#7A5C45' }}>
               Already have an account?{' '}
-              <IonRouterLink routerLink="/login">Sign in</IonRouterLink>
+              <span onClick={() => history.push('/login')} style={{ color: '#6B3A1F', fontWeight: 600, cursor: 'pointer' }}>
+                Sign in
+              </span>
             </p>
           </div>
         </div>

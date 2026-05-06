@@ -1,12 +1,8 @@
 import React, { useState } from 'react';
-import {
-  IonContent, IonPage, IonButton, IonInput, IonItem,
-  IonLabel, IonText, IonSpinner, IonRouterLink,
-} from '@ionic/react';
+import { IonPage, IonContent } from '@ionic/react';
 import { useHistory } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { AxiosError } from 'axios';
-import './AuthPages.css';
 
 const LoginPage: React.FC = () => {
   const [email, setEmail] = useState('');
@@ -17,10 +13,7 @@ const LoginPage: React.FC = () => {
   const history = useHistory();
 
   const handleLogin = async () => {
-    if (!email || !password) {
-      setError('Please enter email and password.');
-      return;
-    }
+    if (!email || !password) { setError('Please enter email and password.'); return; }
     setLoading(true);
     setError('');
     try {
@@ -33,66 +26,65 @@ const LoginPage: React.FC = () => {
     }
   };
 
-  // Redirect after login based on role
   React.useEffect(() => {
-    if (user) {
-      history.replace(user.role === 'admin' ? '/admin' : '/shop');
-    }
+    if (user) history.replace(user.role === 'admin' ? '/admin' : '/shop');
   }, [user, history]);
 
   return (
     <IonPage>
-      <IonContent className="auth-content">
-        <div className="auth-container">
-          <div className="auth-header">
-            <div className="auth-logo">🍫</div>
-            <h1 className="auth-title">Choco Pickup</h1>
-            <p className="auth-subtitle">Chocolates & Ice Cream</p>
+      <IonContent>
+        <div style={{ minHeight: '100vh', background: 'linear-gradient(160deg, #2C1200, #5C2E00)', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: 24 }}>
+          <div style={{ textAlign: 'center', marginBottom: 32 }}>
+            <div style={{ fontSize: 56 }}>🍫</div>
+            <h1 style={{ color: '#FDF6EC', fontFamily: 'serif', fontSize: 28, margin: '8px 0 4px' }}>Chocoburg</h1>
+            <p style={{ color: 'rgba(253,246,236,0.7)', fontSize: 14, margin: 0 }}>Chocolates & Ice Cream</p>
           </div>
 
-          <div className="auth-card">
-            <h2>Welcome back</h2>
+          <div style={{ background: '#FDF6EC', borderRadius: 20, padding: 28, width: '100%', maxWidth: 400 }}>
+            <h2 style={{ fontFamily: 'serif', color: '#1A0800', margin: '0 0 20px', fontSize: 22 }}>Welcome back</h2>
 
             {error && (
-              <div className="auth-error">
-                <IonText color="danger">{error}</IonText>
+              <div style={{ background: '#FDEDEC', color: '#C0392B', padding: '10px 14px', borderRadius: 8, marginBottom: 16, fontSize: 14 }}>
+                {error}
               </div>
             )}
 
-            <IonItem className="auth-input" lines="none">
-              <IonLabel position="stacked">Email</IonLabel>
-              <IonInput
+            <div style={{ marginBottom: 16 }}>
+              <label style={{ display: 'block', fontSize: 13, fontWeight: 600, color: '#7A5C45', textTransform: 'uppercase', letterSpacing: '0.5px', marginBottom: 6 }}>Email</label>
+              <input
                 type="email"
                 value={email}
-                onIonChange={e => setEmail(e.detail.value!)}
+                onChange={e => setEmail(e.target.value)}
                 placeholder="you@example.com"
-                autocomplete="email"
+                onKeyDown={e => e.key === 'Enter' && handleLogin()}
+                style={{ width: '100%', border: '2px solid #E8D5BE', borderRadius: 10, padding: '12px 14px', fontSize: 15, outline: 'none', fontFamily: 'inherit', boxSizing: 'border-box' }}
               />
-            </IonItem>
+            </div>
 
-            <IonItem className="auth-input" lines="none">
-              <IonLabel position="stacked">Password</IonLabel>
-              <IonInput
+            <div style={{ marginBottom: 20 }}>
+              <label style={{ display: 'block', fontSize: 13, fontWeight: 600, color: '#7A5C45', textTransform: 'uppercase', letterSpacing: '0.5px', marginBottom: 6 }}>Password</label>
+              <input
                 type="password"
                 value={password}
-                onIonChange={e => setPassword(e.detail.value!)}
+                onChange={e => setPassword(e.target.value)}
                 placeholder="••••••••"
-                onKeyPress={e => e.key === 'Enter' && handleLogin()}
+                onKeyDown={e => e.key === 'Enter' && handleLogin()}
+                style={{ width: '100%', border: '2px solid #E8D5BE', borderRadius: 10, padding: '12px 14px', fontSize: 15, outline: 'none', fontFamily: 'inherit', boxSizing: 'border-box' }}
               />
-            </IonItem>
+            </div>
 
-            <IonButton
-              expand="block"
-              className="auth-button"
+            <button
               onClick={handleLogin}
               disabled={loading}
-            >
-              {loading ? <IonSpinner name="crescent" /> : 'Sign In'}
-            </IonButton>
+              style={{ width: '100%', background: '#3D1C02', color: '#FDF6EC', border: 'none', borderRadius: 12, padding: '14px 24px', fontSize: 15, fontWeight: 600, cursor: loading ? 'not-allowed' : 'pointer', opacity: loading ? 0.7 : 1 }}>
+              {loading ? 'Signing in...' : 'Sign In'}
+            </button>
 
-            <p className="auth-link-text">
+            <p style={{ textAlign: 'center', marginTop: 16, fontSize: 14, color: '#7A5C45' }}>
               Don't have an account?{' '}
-              <IonRouterLink routerLink="/register">Create one</IonRouterLink>
+              <span onClick={() => history.push('/register')} style={{ color: '#6B3A1F', fontWeight: 600, cursor: 'pointer' }}>
+                Create one
+              </span>
             </p>
           </div>
         </div>
