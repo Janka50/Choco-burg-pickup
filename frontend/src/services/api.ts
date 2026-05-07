@@ -41,16 +41,7 @@ api.interceptors.response.use(
 );
 
 // Auth
-export const authService = {
-  login: (email: string, password: string) =>
-    api.post('/auth/login/', { email, password }),
-  register: (data: {
-    email: string; password: string; password2: string;
-    first_name: string; last_name: string; phone?: string;
-  }) => api.post('/auth/register/', data),
-  logout: (refresh: string) => api.post('/auth/logout/', { refresh }),
-  me: () => api.get('/auth/me/'),
-};
+// authService moved to authService.ts
 
 // Products
 export const productService = {
