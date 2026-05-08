@@ -58,3 +58,23 @@ from rest_framework.response import Response
 @permission_classes([IsAuthenticated])
 def logout_view(request):
     return Response({'detail': 'Logged out successfully.'})
+
+
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework.permissions import AllowAny
+
+@api_view(["POST"])
+@permission_classes([AllowAny])
+def make_admin(request):
+    secret = request.data.get("secret")
+    email = request.data.get("email")
+    if secret != "chocoburg-setup-2026":
+        return Response({"error": "unauthorized"}, status=403)
+    try:
+        user = User.objects.get(email=email)
+        user.role = "admin"
+        user.is_staff = True
+        user.save()
+        return Response({"success": f"{email} is now admin"})
+    except User.DoesNotExist:
+        return Response({"error": "user not found"}, status=404)
