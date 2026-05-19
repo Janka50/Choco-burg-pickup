@@ -1,0 +1,40 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+venv/
+env/
+*.egg-info/
+.eggs/
+
+# Django
+*.log
+*.pot
+*.pyc
+db.sqlite3
+media/
+staticfiles/
+.env
+
+# Node
+node_modules/
+dist/
+.env
+.env.local
+.env.production
+
+# Android
+android/
+*.jks
+keystore.properties
+
+# iOS
+ios/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+.DS_Store

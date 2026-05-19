@@ -4,7 +4,7 @@ import {
   IonIcon, IonLabel, IonSpinner, setupIonicReact,
 } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
-import { Route, Redirect } from 'react-router-dom';
+import { Route, Redirect, Switch } from 'react-router-dom';
 import {
   storefrontOutline, cartOutline, listOutline, personOutline,
   checkboxOutline, cubeOutline,
@@ -19,7 +19,6 @@ import './theme/variables.css';
 import { AuthProvider, useAuth } from './context/AuthContext';
 import { CartProvider } from './context/CartContext';
 
-import LandingPage from './pages/LandingPage';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import ShopPage from './pages/ShopPage';
@@ -28,7 +27,6 @@ import OrderHistoryPage from './pages/OrderHistoryPage';
 import ProfilePage from './pages/ProfilePage';
 import AdminDashboardPage from './pages/AdminDashboardPage';
 import AdminInventoryPage from './pages/AdminInventoryPage';
-import POSPage from './pages/POSPage';
 
 setupIonicReact();
 
@@ -67,7 +65,6 @@ const AdminTabs: React.FC = () => (
     <IonRouterOutlet>
       <Route path="/admin" component={AdminDashboardPage} exact />
       <Route path="/admin/inventory" component={AdminInventoryPage} exact />
-      <Route path="/pos" component={POSPage} exact />
       <Route path="/admin/profile" component={ProfilePage} exact />
     </IonRouterOutlet>
     <IonTabBar slot="bottom">
@@ -105,31 +102,26 @@ const AppRoutes: React.FC = () => {
   }
 
   return (
-    <IonRouterOutlet>
-      <Route path="/" component={LandingPage} exact />
-      <Route path="/login" component={LoginPage} exact />
-      <Route path="/register" component={RegisterPage} exact />
-      <Route path="/shop" render={() =>
-        isAuthenticated && user?.role === 'customer' ? <CustomerTabs /> : <Redirect to="/login" />
-      } />
-      <Route path="/cart" render={() =>
-        isAuthenticated && user?.role === 'customer' ? <CustomerTabs /> : <Redirect to="/login" />
-      } />
-      <Route path="/orders" render={() =>
-        isAuthenticated && user?.role === 'customer' ? <CustomerTabs /> : <Redirect to="/login" />
-      } />
-      <Route path="/profile" render={() =>
-        isAuthenticated && user?.role === 'customer' ? <CustomerTabs /> : <Redirect to="/login" />
-      } />
-      <Route path="/admin" render={() =>
-        isAuthenticated && user?.role === 'admin' ? <AdminTabs /> : <Redirect to="/login" />
-      } />
-      <Route exact path="/">
-        {isAuthenticated
-          ? <Redirect to={user?.role === 'admin' ? '/admin' : '/shop'} />
-          : <Redirect to="/login" />}
-      </Route>
-    </IonRouterOutlet>
+    <IonReactRouter>
+      <IonRouterOutlet>
+        <Route path="/login" component={LoginPage} exact />
+        <Route path="/register" component={RegisterPage} exact />
+
+        {isAuthenticated && user?.role === 'customer' && (
+          <Route path="/" render={() => <CustomerTabs />} />
+        )}
+        {isAuthenticated && user?.role === 'admin' && (
+          <Route path="/" render={() => <AdminTabs />} />
+        )}
+
+        <Route exact path="/">
+          {isAuthenticated
+            ? <Redirect to={user?.role === 'admin' ? '/admin' : '/shop'} />
+            : <Redirect to="/login" />}
+        </Route>
+        <Redirect to={isAuthenticated ? (user?.role === 'admin' ? '/admin' : '/shop') : '/login'} />
+      </IonRouterOutlet>
+    </IonReactRouter>
   );
 };
 
@@ -137,9 +129,7 @@ const App: React.FC = () => (
   <IonApp>
     <AuthProvider>
       <CartProvider>
-        <IonReactRouter>
-          <AppRoutes />
-        </IonReactRouter>
+        <AppRoutes />
       </CartProvider>
     </AuthProvider>
   </IonApp>

@@ -21,10 +21,10 @@ INSTALLED_APPS = [
     'rest_framework_simplejwt',
     'corsheaders',
     # Local
-    'apps.users',
+    'apps.accounts',
     'apps.products',
     'apps.orders',
-    'apps.pos',
+    'choco_shop'
 ]
 
 MIDDLEWARE = [
@@ -44,7 +44,7 @@ ROOT_URLCONF = 'config.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'templates'],
+        'DIRS': [],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -67,7 +67,7 @@ DATABASES = {
     )
 }
 
-AUTH_USER_MODEL = 'users.User'
+AUTH_USER_MODEL = 'accounts.User'
 
 AUTH_PASSWORD_VALIDATORS = [
     {'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator'},
@@ -137,56 +137,3 @@ if not DEBUG:
     SECURE_SSL_REDIRECT = True
     SESSION_COOKIE_SECURE = True
     CSRF_COOKIE_SECURE = True
-
-
-# ─── PRODUCTION OVERRIDES ─────────────────────────────────────────────────────
-import os
-from decouple import config as env
-
-# Security
-SECRET_KEY = env('SECRET_KEY', default=SECRET_KEY)
-DEBUG = env('DEBUG', default=False, cast=bool)
-ALLOWED_HOSTS = env('ALLOWED_HOSTS', default='localhost,127.0.0.1').split(',')
-
-# Database override via DATABASE_URL
-import dj_database_url
-db_url = env('DATABASE_URL', default=None)
-if db_url:
-    DATABASES['default'] = dj_database_url.parse(db_url, conn_max_age=600)
-
-# CORS
-CORS_ALLOWED_ORIGINS = env(
-    'CORS_ALLOWED_ORIGINS',
-    default='http://localhost:5173'
-).split(',')
-CORS_ALLOW_CREDENTIALS = True
-
-# Static files via WhiteNoise
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-STATIC_ROOT = BASE_DIR / 'staticfiles'
-
-# Always return JSON errors, never HTML
-REST_FRAMEWORK['DEFAULT_RENDERER_CLASSES'] = ['rest_framework.renderers.JSONRenderer']
-
-# Remove templates dir (API only)
-TEMPLATES[0]['DIRS'] = []
-
-
-# CSP - Allow frontend to make requests
-SECURE_CROSS_ORIGIN_OPENER_POLICY = None
-CORS_ALLOW_ALL_ORIGINS = False
-CORS_ALLOWED_ORIGINS = env(
-    "CORS_ALLOWED_ORIGINS",
-    default="http://localhost:5173"
-).split(",")
-CORS_ALLOW_HEADERS = [
-    "accept",
-    "accept-encoding",
-    "authorization",
-    "content-type",
-    "dnt",
-    "origin",
-    "user-agent",
-    "x-csrftoken",
-    "x-requested-with",
-]

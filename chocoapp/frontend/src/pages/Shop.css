@@ -1,0 +1,31 @@
+.products-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  padding: 8px 12px 80px;
+}
+
+.add-btn {
+  background: #3D1A00;
+  color: #fff;
+  border: none;
+  border-radius: 20px;
+  padding: 7px 14px;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.2s, transform 0.1s;
+  font-family: inherit;
+}
+
+.add-btn:active { transform: scale(0.95); }
+.add-btn:hover { background: #2a1000; }
+
+.out-of-stock {
+  font-size: 11px;
+  color: #c0392b;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
