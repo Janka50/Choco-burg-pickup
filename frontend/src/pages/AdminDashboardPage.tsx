@@ -3,6 +3,7 @@ import {
   IonPage, IonContent, IonHeader, IonToolbar, IonTitle,
   IonSpinner, IonRefresher, IonRefresherContent,
 } from '@ionic/react';
+import { useHistory } from 'react-router-dom';
 import { orderService } from '../services/api';
 import { Order, OrderStatus } from '../types';
 
@@ -18,6 +19,7 @@ const STATUS_BG: Record<string, string> = {
 const FILTERS = ['PENDING', 'APPROVED', 'COMPLETED', 'REJECTED'];
 
 const AdminDashboardPage: React.FC = () => {
+  const history = useHistory();
   const [orders, setOrders] = useState<Order[]>([]);
   const [loading, setLoading] = useState(true);
   const [filterStatus, setFilterStatus] = useState('PENDING');
@@ -79,6 +81,18 @@ const AdminDashboardPage: React.FC = () => {
         </IonRefresher>
 
         <div style={{ padding: 16, maxWidth: 640, margin: '0 auto' }}>
+
+          {/* Quick Actions */}
+          <div style={{ display: 'flex', gap: 10, marginBottom: 16 }}>
+            <button onClick={() => history.push('/pos')}
+              style={{ flex: 1, background: '#C8905A', color: '#1A0800', border: 'none', borderRadius: 10, padding: '12px 16px', fontWeight: 700, fontSize: 14, cursor: 'pointer' }}>
+              🖥️ Open POS
+            </button>
+            <button onClick={() => history.push('/admin/inventory')}
+              style={{ flex: 1, background: 'transparent', color: '#3D1C02', border: '2px solid #3D1C02', borderRadius: 10, padding: '12px 16px', fontWeight: 600, fontSize: 14, cursor: 'pointer' }}>
+              📦 Inventory
+            </button>
+          </div>
 
           {/* Filter tabs */}
           <div style={{ display: 'flex', gap: 8, marginBottom: 16, overflowX: 'auto', paddingBottom: 4 }}>
