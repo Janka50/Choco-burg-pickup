@@ -67,7 +67,8 @@ const AdminTabs: React.FC = () => (
     <IonRouterOutlet>
       <Route path="/admin" component={AdminDashboardPage} exact />
       <Route path="/admin/inventory" component={AdminInventoryPage} exact />
-      <Route path="/pos" component={POSPage} exact />
+      <Route path="/pos" render={() => isAuthenticated && user?.role === 'admin' ? <POSPage /> : <Redirect to="/login" />} exact />
+      
       <Route path="/admin/profile" component={ProfilePage} exact />
     </IonRouterOutlet>
     <IonTabBar slot="bottom">

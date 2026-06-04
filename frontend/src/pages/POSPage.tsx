@@ -25,7 +25,7 @@ const POSPage: React.FC = () => {
     ]).then(([prodRes, sessionRes]) => {
       setProducts(prodRes.data.results || prodRes.data);
       setSession(sessionRes.data.session || sessionRes.data);
-    }).catch(() => setError('Failed to load POS data.'))
+    }).catch((e) => { console.error(e); setError('Failed to load POS data. Check console.'); })
       .finally(() => setLoading(false));
   }, []);
 
