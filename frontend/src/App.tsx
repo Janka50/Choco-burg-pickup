@@ -67,7 +67,6 @@ const AdminTabs: React.FC = () => (
     <IonRouterOutlet>
       <Route path="/admin" component={AdminDashboardPage} exact />
       <Route path="/admin/inventory" component={AdminInventoryPage} exact />
-      <Route path="/pos" render={() => isAuthenticated && user?.role === 'admin' ? <POSPage /> : <Redirect to="/login" />} exact />
       
       <Route path="/admin/profile" component={ProfilePage} exact />
     </IonRouterOutlet>
@@ -121,6 +120,9 @@ const AppRoutes: React.FC = () => {
       } />
       <Route path="/profile" render={() =>
         isAuthenticated && user?.role === 'customer' ? <CustomerTabs /> : <Redirect to="/login" />
+      } />
+      <Route path="/pos" render={() =>
+        isAuthenticated && user?.role === "admin" ? <POSPage /> : <Redirect to="/login" />
       } />
       <Route path="/admin" render={() =>
         isAuthenticated && user?.role === 'admin' ? <AdminTabs /> : <Redirect to="/login" />
