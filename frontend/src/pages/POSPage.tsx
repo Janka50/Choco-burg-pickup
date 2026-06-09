@@ -58,7 +58,17 @@ const POSPage: React.FC = () => {
   };
 
   const processSale = async () => {
-    if (!session) { setError('Open a session first.'); return; }
+    let activeSession = session;
+    if (!activeSession || !activeSession.is_active) {
+      try {
+        const { data } = await api.post('/pos/session/open/', { opening_float: 0 });
+        activeSession = data;
+        setSession(data);
+      } catch {
+        setError('Failed to open session.');
+        return;
+      }
+    }
     if (cart.length === 0) { setError('Add items to cart.'); return; }
     if (parseFloat(amountPaid) < total) { setError('Amount paid is less than total.'); return; }
     setProcessing(true);
