@@ -58,26 +58,31 @@ const POSPage: React.FC = () => {
   };
 
   const processSale = async () => {
+    if (cart.length === 0) { setError('Add items to cart.'); return; }
+    if (total <= 0) { setError('Cart is empty.'); return; }
+    if (paymentMethod === 'CASH' && (!amountPaid || parseFloat(amountPaid) < total)) {
+      setError('Amount paid must be at least ₦' + total.toLocaleString());
+      return;
+    }
     let activeSession = session;
-    if (!activeSession || !activeSession.is_active) {
+    if (!activeSession || activeSession.is_active === false) {
       try {
         const { data } = await api.post('/pos/session/open/', { opening_float: 0 });
         activeSession = data;
         setSession(data);
       } catch {
-        setError('Failed to open session.');
+        setError('Failed to open session. Try again.');
         return;
       }
     }
-    if (cart.length === 0) { setError('Add items to cart.'); return; }
-    if (parseFloat(amountPaid) < total) { setError('Amount paid is less than total.'); return; }
     setProcessing(true);
     setError('');
     try {
+      const paid = paymentMethod === 'CASH' ? parseFloat(amountPaid) : total;
       const { data } = await api.post('/pos/sales/create/', {
         items: cart.map(i => ({ product_id: i.product.id, quantity: i.quantity })),
         payment_method: paymentMethod,
-        amount_paid: parseFloat(amountPaid),
+        amount_paid: paid,
       });
       setLastReceipt(data);
       setCart([]);
