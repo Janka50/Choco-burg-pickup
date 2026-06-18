@@ -28,10 +28,14 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   useEffect(() => {
     const token = localStorage.getItem('access_token');
-    if (token) {
+    const refresh = localStorage.getItem('refresh_token');
+    if (token || refresh) {
       authService.getMe()
         .then((u) => setUser(u))
-        .catch(() => localStorage.clear())
+        .catch(() => {
+          localStorage.clear();
+          setUser(null);
+        })
         .finally(() => setIsLoading(false));
     } else {
       setIsLoading(false);

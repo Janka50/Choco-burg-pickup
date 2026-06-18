@@ -31,9 +31,15 @@ api.interceptors.response.use(
           if (original.headers) original.headers.Authorization = `Bearer ${data.access}`;
           return api(original);
         } catch {
-          localStorage.clear();
+          // Refresh failed - clear and redirect
+          localStorage.removeItem('access_token');
+          localStorage.removeItem('refresh_token');
           window.location.href = '/login';
         }
+      } else {
+        // No refresh token - redirect to login
+        localStorage.clear();
+        window.location.href = '/login';
       }
     }
     return Promise.reject(error);
