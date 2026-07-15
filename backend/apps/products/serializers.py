@@ -15,10 +15,11 @@ class ProductSerializer(serializers.ModelSerializer):
         read_only_fields = ("id", "created_at", "in_stock")
 
     def get_image_url(self, obj):
-        request = self.context.get("request")
-        if obj.image and request:
-            return request.build_absolute_uri(obj.image.url)
-        return None
+        if not obj.image:
+            return None
+        # Cloudinary returns full URL directly - no need for request
+        url = str(obj.image.url) if hasattr(obj.image, "url") else None
+        return url
 
 
 class ProductAdminSerializer(serializers.ModelSerializer):
@@ -35,10 +36,9 @@ class ProductAdminSerializer(serializers.ModelSerializer):
         read_only_fields = ("id", "created_at", "updated_at", "in_stock")
 
     def get_image_url(self, obj):
-        request = self.context.get("request")
-        if obj.image and request:
-            return request.build_absolute_uri(obj.image.url)
-        return None
+        if not obj.image:
+            return None
+        return str(obj.image.url) if hasattr(obj.image, "url") else None
 
     def validate_price(self, value):
         if float(value) <= 0:
