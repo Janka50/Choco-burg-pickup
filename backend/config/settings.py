@@ -174,7 +174,7 @@ CORS_ALLOWED_ORIGINS = env(
 CORS_ALLOW_CREDENTIALS = True
 
 # Static files via WhiteNoise
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+STATICFILES_STORAGE = 'whitenoise.storage.StaticFilesStorage'
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 # Cloudinary for media files
