@@ -1,6 +1,6 @@
-import React, { createContext, useContext, useEffect, useState, useCallback } from 'react';
-import { User, AuthTokens } from '../types';
-import { authService } from '../services/authService';
+import React, { createContext, useContext, useEffect, useState, useCallback } from "react";
+import { User, AuthTokens } from "../types";
+import { authService } from "../services/authService";
 
 export interface RegisterPayload {
   email: string;
@@ -22,29 +22,68 @@ interface AuthContextType {
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
+const API_URL = import.meta.env.VITE_API_URL || "http://localhost:8000/api";
+
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [user, setUser] = useState<User | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
+  // On app load — restore session
   useEffect(() => {
-    const token = localStorage.getItem('access_token');
-    const refresh = localStorage.getItem('refresh_token');
-    if (token || refresh) {
-      authService.getMe()
-        .then((u) => setUser(u))
-        .catch(() => {
+    const restore = async () => {
+      const access = localStorage.getItem("access_token");
+      const refresh = localStorage.getItem("refresh_token");
+
+      if (!access && !refresh) {
+        setIsLoading(false);
+        return;
+      }
+
+      try {
+        // Try with current access token
+        const u = await authService.getMe();
+        setUser(u);
+      } catch {
+        // Access token failed — try refreshing
+        if (refresh) {
+          try {
+            const res = await fetch(`${API_URL}/auth/refresh/`, {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ refresh }),
+            });
+            if (res.ok) {
+              const tokens = await res.json();
+              localStorage.setItem("access_token", tokens.access);
+              if (tokens.refresh) {
+                localStorage.setItem("refresh_token", tokens.refresh);
+              }
+              const u = await authService.getMe();
+              setUser(u);
+            } else {
+              // Refresh failed — clear session
+              localStorage.clear();
+              setUser(null);
+            }
+          } catch {
+            localStorage.clear();
+            setUser(null);
+          }
+        } else {
           localStorage.clear();
           setUser(null);
-        })
-        .finally(() => setIsLoading(false));
-    } else {
-      setIsLoading(false);
-    }
+        }
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    restore();
   }, []);
 
   const saveTokens = (tokens: AuthTokens) => {
-    localStorage.setItem('access_token', tokens.access);
-    localStorage.setItem('refresh_token', tokens.refresh);
+    localStorage.setItem("access_token", tokens.access);
+    localStorage.setItem("refresh_token", tokens.refresh);
   };
 
   const login = useCallback(async (email: string, password: string) => {
@@ -60,15 +99,19 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   }, []);
 
   const logout = useCallback(async () => {
-    localStorage.clear();
+    localStorage.removeItem("access_token");
+    localStorage.removeItem("refresh_token");
     setUser(null);
   }, []);
 
   return (
     <AuthContext.Provider value={{
-      user, isLoading,
+      user,
+      isLoading,
       isAuthenticated: !!user,
-      login, register, logout,
+      login,
+      register,
+      logout,
     }}>
       {children}
     </AuthContext.Provider>
@@ -77,6 +120,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
 export const useAuth = (): AuthContextType => {
   const ctx = useContext(AuthContext);
-  if (!ctx) throw new Error('useAuth must be used within AuthProvider');
+  if (!ctx) throw new Error("useAuth must be used within AuthProvider");
   return ctx;
 };
