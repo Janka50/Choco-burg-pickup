@@ -2,7 +2,6 @@ from pathlib import Path
 from decouple import config
 import dj_database_url
 from datetime import timedelta
-import cloudinary 
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
