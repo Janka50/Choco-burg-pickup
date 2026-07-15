@@ -62,7 +62,7 @@ api.interceptors.response.use(
 // authService moved to authService.ts
 export const productService = {
   inventory: () => api.get("/products/admin/inventory/"),
-  list: () => api.get("/products/"),
+  list: (search?: string) => api.get("/products/", { params: search ? { search } : {} }),
   adminList: () => api.get("/products/admin/"),
 };
 
