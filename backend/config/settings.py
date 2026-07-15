@@ -1,4 +1,5 @@
 from pathlib import Path
+from decouple import config as env
 from decouple import config
 import dj_database_url
 from datetime import timedelta
@@ -152,7 +153,6 @@ if not DEBUG:
 
 # ─── PRODUCTION OVERRIDES ─────────────────────────────────────────────────────
 import os
-from decouple import config as env
 
 # Security
 SECRET_KEY = env('SECRET_KEY', default=SECRET_KEY)
