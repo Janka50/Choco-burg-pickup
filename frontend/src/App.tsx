@@ -1,14 +1,14 @@
-import React from 'react';
+import React from "react";
 import {
   IonApp, IonRouterOutlet, IonTabs, IonTabBar, IonTabButton,
   IonIcon, IonLabel, IonSpinner, setupIonicReact,
-} from '@ionic/react';
-import { IonReactRouter } from '@ionic/react-router';
-import { Route, Redirect, Switch } from 'react-router-dom';
+} from "@ionic/react";
+import { IonReactRouter } from "@ionic/react-router";
+import { Route, Redirect, useLocation } from "react-router-dom";
 import {
   storefrontOutline, cartOutline, listOutline, personOutline,
   checkboxOutline, cubeOutline, terminalOutline,
-} from 'ionicons/icons';
+} from "ionicons/icons";
 
 import "@ionic/react/css/core.css";
 import "@ionic/react/css/normalize.css";
@@ -32,7 +32,22 @@ import POSPage from "./pages/POSPage";
 
 setupIonicReact();
 
-// ── Customer tab layout ──────────────────────────────────────────────────────
+// ── Splash screen shown while auth is restoring ───────────────────────────────
+const SplashScreen: React.FC = () => (
+  <div style={{
+    display: "flex", justifyContent: "center", alignItems: "center",
+    height: "100vh", background: "linear-gradient(160deg, #2C1200, #5C2E00)",
+    flexDirection: "column", gap: 20,
+  }}>
+    <div style={{ fontSize: 72 }}>🍫</div>
+    <p style={{ color: "#FDF6EC", fontFamily: "serif", fontSize: 22, margin: 0 }}>
+      Chocoburg
+    </p>
+    <IonSpinner name="crescent" style={{ "--color": "#C8905A" } as any} />
+  </div>
+);
+
+// ── Customer tabs ─────────────────────────────────────────────────────────────
 const CustomerTabs: React.FC = () => (
   <IonTabs>
     <IonRouterOutlet>
@@ -63,7 +78,7 @@ const CustomerTabs: React.FC = () => (
   </IonTabs>
 );
 
-// ── Admin tab layout ─────────────────────────────────────────────────────────
+// ── Admin tabs ────────────────────────────────────────────────────────────────
 const AdminTabs: React.FC = () => (
   <IonTabs>
     <IonRouterOutlet>
@@ -94,84 +109,117 @@ const AdminTabs: React.FC = () => (
   </IonTabs>
 );
 
-// ── Route guard components ───────────────────────────────────────────────────
-const CustomerRoute: React.FC<{ path: string; exact?: boolean }> = ({ path, exact }) => {
-  const { isAuthenticated, user } = useAuth();
+// ── Protected route guards ────────────────────────────────────────────────────
+const CUSTOMER_PATHS = ["/shop", "/cart", "/orders", "/profile"];
+const ADMIN_PATHS = ["/admin", "/admin/inventory", "/admin/profile", "/pos"];
+
+const ProtectedRoute: React.FC<{
+  path: string;
+  role: "customer" | "admin";
+  component: React.ComponentType;
+  exact?: boolean;
+}> = ({ path, role, component: Component, exact }) => {
+  const { isAuthenticated, user, setIntendedPath } = useAuth();
+  const location = useLocation();
+
   return (
-    <Route path={path} exact={exact} render={() =>
-      isAuthenticated && user?.role === "customer"
-        ? <CustomerTabs />
-        : <Redirect to="/login" />
-    } />
+    <Route
+      path={path}
+      exact={exact}
+      render={() => {
+        if (!isAuthenticated) {
+          // Save where they were trying to go
+          setIntendedPath(location.pathname);
+          return <Redirect to="/login" />;
+        }
+        if (user?.role !== role) {
+          // Wrong role - send to their home
+          return (
+            <Redirect to={user?.role === "admin" ? "/admin" : "/shop"} />
+          );
+        }
+        return <Component />;
+      }}
+    />
   );
 };
 
-const AdminRoute: React.FC<{ path: string; exact?: boolean }> = ({ path, exact }) => {
-  const { isAuthenticated, user } = useAuth();
-  return (
-    <Route path={path} exact={exact} render={() =>
-      isAuthenticated && user?.role === "admin"
-        ? <AdminTabs />
-        : <Redirect to="/login" />
-    } />
-  );
-};
-
-// ── Main routes ──────────────────────────────────────────────────────────────
+// ── App routes ────────────────────────────────────────────────────────────────
 const AppRoutes: React.FC = () => {
-  const { user, isLoading, isAuthenticated } = useAuth();
+  const { user, isLoading, isAuthenticated, intendedPath, setIntendedPath } =
+    useAuth();
 
+  // Block ALL rendering until auth state is resolved
+  // This prevents the fallback 404 route from firing prematurely
   if (isLoading) {
-    return (
-      <div style={{
-        display: "flex", justifyContent: "center", alignItems: "center",
-        height: "100vh", background: "linear-gradient(160deg, #2C1200, #5C2E00)",
-        flexDirection: "column", gap: 16,
-      }}>
-        <div style={{ fontSize: 64 }}>🍫</div>
-        <IonSpinner name="crescent" style={{ "--color": "#FFF8F0" } as any} />
-      </div>
-    );
+    return <SplashScreen />;
   }
+
+  const defaultHome = user?.role === "admin" ? "/admin" : "/shop";
 
   return (
     <IonRouterOutlet>
-      {/* Public routes */}
+      {/* Landing page */}
       <Route path="/" component={LandingPage} exact />
-      <Route path="/login" render={() =>
-        isAuthenticated
-          ? <Redirect to={user?.role === "admin" ? "/admin" : "/shop"} />
-          : <LoginPage />
-      } exact />
-      <Route path="/register" render={() =>
-        isAuthenticated
-          ? <Redirect to={user?.role === "admin" ? "/admin" : "/shop"} />
-          : <RegisterPage />
-      } exact />
 
-      {/* Customer routes */}
-      <CustomerRoute path="/shop" exact />
-      <CustomerRoute path="/cart" exact />
-      <CustomerRoute path="/orders" exact />
-      <CustomerRoute path="/profile" exact />
+      {/* Auth routes - redirect away if already logged in */}
+      <Route
+        path="/login"
+        exact
+        render={() => {
+          if (isAuthenticated) {
+            const dest = intendedPath || defaultHome;
+            setIntendedPath(null);
+            return <Redirect to={dest} />;
+          }
+          return <LoginPage />;
+        }}
+      />
+      <Route
+        path="/register"
+        exact
+        render={() =>
+          isAuthenticated ? <Redirect to={defaultHome} /> : <RegisterPage />
+        }
+      />
 
-      {/* Admin routes - all handled by AdminTabs */}
-      <AdminRoute path="/admin" exact />
-      <AdminRoute path="/admin/inventory" exact />
-      <AdminRoute path="/admin/profile" exact />
-      <AdminRoute path="/pos" exact />
+      {/* Customer protected routes */}
+      {CUSTOMER_PATHS.map((p) => (
+        <ProtectedRoute
+          key={p}
+          path={p}
+          exact
+          role="customer"
+          component={CustomerTabs}
+        />
+      ))}
 
-      {/* Fallback */}
-      <Route render={() =>
-        isAuthenticated
-          ? <Redirect to={user?.role === "admin" ? "/admin" : "/shop"} />
-          : <Redirect to="/" />
-      } />
+      {/* Admin protected routes */}
+      {ADMIN_PATHS.map((p) => (
+        <ProtectedRoute
+          key={p}
+          path={p}
+          exact={p === "/admin"}
+          role="admin"
+          component={AdminTabs}
+        />
+      ))}
+
+      {/* Catch-all - only fires after isLoading=false */}
+      <Route
+        render={() =>
+          isAuthenticated ? (
+            <Redirect to={defaultHome} />
+          ) : (
+            <Redirect to="/login" />
+          )
+        }
+      />
     </IonRouterOutlet>
   );
 };
 
-// ── App root ─────────────────────────────────────────────────────────────────
+// ── Root ──────────────────────────────────────────────────────────────────────
 const App: React.FC = () => (
   <IonApp>
     <AuthProvider>

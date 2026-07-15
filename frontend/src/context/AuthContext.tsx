@@ -1,4 +1,7 @@
-import React, { createContext, useContext, useEffect, useState, useCallback } from "react";
+import React, {
+  createContext, useContext, useEffect,
+  useState, useCallback, useRef,
+} from "react";
 import { User, AuthTokens } from "../types";
 import { authService } from "../services/authService";
 
@@ -15,6 +18,8 @@ interface AuthContextType {
   user: User | null;
   isLoading: boolean;
   isAuthenticated: boolean;
+  intendedPath: string | null;
+  setIntendedPath: (path: string | null) => void;
   login: (email: string, password: string) => Promise<void>;
   register: (data: RegisterPayload) => Promise<void>;
   logout: () => Promise<void>;
@@ -24,11 +29,31 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 const API_URL = import.meta.env.VITE_API_URL || "http://localhost:8000/api";
 
-export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
+  children,
+}) => {
   const [user, setUser] = useState<User | null>(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [intendedPath, setIntendedPath] = useState<string | null>(null);
+  const logoutRef = useRef<() => void>();
 
-  // On app load — restore session
+  const doLogout = useCallback(() => {
+    localStorage.removeItem("access_token");
+    localStorage.removeItem("refresh_token");
+    setUser(null);
+  }, []);
+
+  // Keep ref updated so event listener always has latest
+  logoutRef.current = doLogout;
+
+  // Listen for axios interceptor logout signal
+  useEffect(() => {
+    const handler = () => logoutRef.current?.();
+    window.addEventListener("auth:logout", handler);
+    return () => window.removeEventListener("auth:logout", handler);
+  }, []);
+
+  // Restore session on app load
   useEffect(() => {
     const restore = async () => {
       const access = localStorage.getItem("access_token");
@@ -40,11 +65,11 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       }
 
       try {
-        // Try with current access token
+        // Try current access token
         const u = await authService.getMe();
         setUser(u);
       } catch {
-        // Access token failed — try refreshing
+        // Try refreshing
         if (refresh) {
           try {
             const res = await fetch(`${API_URL}/auth/refresh/`, {
@@ -61,17 +86,13 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
               const u = await authService.getMe();
               setUser(u);
             } else {
-              // Refresh failed — clear session
-              localStorage.clear();
-              setUser(null);
+              doLogout();
             }
           } catch {
-            localStorage.clear();
-            setUser(null);
+            doLogout();
           }
         } else {
-          localStorage.clear();
-          setUser(null);
+          doLogout();
         }
       } finally {
         setIsLoading(false);
@@ -79,7 +100,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     };
 
     restore();
-  }, []);
+  }, [doLogout]);
 
   const saveTokens = (tokens: AuthTokens) => {
     localStorage.setItem("access_token", tokens.access);
@@ -99,20 +120,22 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   }, []);
 
   const logout = useCallback(async () => {
-    localStorage.removeItem("access_token");
-    localStorage.removeItem("refresh_token");
-    setUser(null);
-  }, []);
+    doLogout();
+  }, [doLogout]);
 
   return (
-    <AuthContext.Provider value={{
-      user,
-      isLoading,
-      isAuthenticated: !!user,
-      login,
-      register,
-      logout,
-    }}>
+    <AuthContext.Provider
+      value={{
+        user,
+        isLoading,
+        isAuthenticated: !!user,
+        intendedPath,
+        setIntendedPath,
+        login,
+        register,
+        logout,
+      }}
+    >
       {children}
     </AuthContext.Provider>
   );
