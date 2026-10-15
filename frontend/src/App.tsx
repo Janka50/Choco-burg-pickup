@@ -36,14 +36,11 @@ setupIonicReact();
 const SplashScreen: React.FC = () => (
   <div style={{
     display: "flex", justifyContent: "center", alignItems: "center",
-    height: "100vh", background: "linear-gradient(160deg, #2C1200, #5C2E00)",
+    height: "100vh", background: "linear-gradient(160deg, #064a78, #096bac)",
     flexDirection: "column", gap: 20,
   }}>
-    <div style={{ fontSize: 72 }}>🍫</div>
-    <p style={{ color: "#FDF6EC", fontFamily: "serif", fontSize: 22, margin: 0 }}>
-      Chocoburg
-    </p>
-    <IonSpinner name="crescent" style={{ "--color": "#C8905A" } as any} />
+    <img src="/logo.png" alt="Chocoburg" style={{ height: 110 }} />
+    <IonSpinner name="crescent" style={{ "--color": "#eeab34" } as any} />
   </div>
 );
 

@@ -1,39 +1,39 @@
 :root {
   /* Chocolate Brand Palette */
-  --color-choco-dark: #2C1200;
-  --color-choco: #5C2E00;
-  --color-choco-medium: #8B4513;
-  --color-choco-light: #C47A45;
-  --color-cream: #FFF8F0;
-  --color-cream-dark: #F5E6D3;
-  --color-gold: #D4AF37;
+  --color-choco-dark: #064a78;
+  --color-choco: #096bac;
+  --color-choco-medium: #2b86bf;
+  --color-choco-light: #eeab34;
+  --color-cream: #f4f8fb;
+  --color-cream-dark: #e3eef6;
+  --color-gold: #eeab34;
   --color-success: #4CAF50;
   --color-danger: #E53935;
   --color-warning: #FF9800;
 
   /* Ionic overrides */
-  --ion-color-primary: #5C2E00;
-  --ion-color-primary-rgb: 92,46,0;
-  --ion-color-primary-contrast: #FFF8F0;
-  --ion-color-primary-contrast-rgb: 255,248,240;
-  --ion-color-primary-shade: #4a2500;
-  --ion-color-primary-tint: #6d3a00;
+  --ion-color-primary: #096bac;
+  --ion-color-primary-rgb: 9,107,172;
+  --ion-color-primary-contrast: #f4f8fb;
+  --ion-color-primary-contrast-rgb: 255,255,255;
+  --ion-color-primary-shade: #085f9a;
+  --ion-color-primary-tint: #2a80b9;
 
-  --ion-color-secondary: #C47A45;
-  --ion-color-secondary-rgb: 196,122,69;
+  --ion-color-secondary: #eeab34;
+  --ion-color-secondary-rgb: 238,171,52;
   --ion-color-secondary-contrast: #ffffff;
-  --ion-color-secondary-shade: #ac6c3d;
-  --ion-color-secondary-tint: #ca8758;
+  --ion-color-secondary-shade: #d19a2e;
+  --ion-color-secondary-tint: #f0b44b;
 
-  --ion-background-color: #FFF8F0;
-  --ion-text-color: #2C1200;
+  --ion-background-color: #f4f8fb;
+  --ion-text-color: #064a78;
 
-  --ion-toolbar-background: #3D1C00;
-  --ion-toolbar-color: #FFF8F0;
+  --ion-toolbar-background: #096bac;
+  --ion-toolbar-color: #f4f8fb;
 
-  --ion-tab-bar-background: #2C1200;
-  --ion-tab-bar-color: #C47A45;
-  --ion-tab-bar-color-selected: #FFF8F0;
+  --ion-tab-bar-background: #064a78;
+  --ion-tab-bar-color: #eeab34;
+  --ion-tab-bar-color-selected: #f4f8fb;
 }
 
 /* Global Styles */
@@ -49,7 +49,7 @@ ion-toolbar {
 ion-tab-bar {
   --background: var(--color-choco-dark);
   --border: none;
-  box-shadow: 0 -2px 10px rgba(44, 18, 0, 0.3);
+  box-shadow: 0 -2px 10px rgba(6,74,120, 0.3);
 }
 
 ion-tab-button {

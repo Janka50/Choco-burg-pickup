@@ -1,8 +1,8 @@
 .shop-search {
-  --background: #F5E6D3;
+  --background: #e3eef6;
   --border-radius: 12px;
-  --color: #2C1200;
-  --placeholder-color: #C47A45;
+  --color: #064a78;
+  --placeholder-color: #eeab34;
   padding: 4px 8px;
 }
 
@@ -21,7 +21,7 @@
 .shop-empty {
   text-align: center;
   padding: 64px 32px;
-  color: #8B4513;
+  color: #2b86bf;
   font-size: 18px;
 }
 

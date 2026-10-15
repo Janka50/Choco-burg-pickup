@@ -73,7 +73,7 @@ const AdminDashboardPage: React.FC = () => {
   return (
     <IonPage>
       <IonHeader>
-        <IonToolbar><IonTitle>🍫 Admin Dashboard</IonTitle></IonToolbar>
+        <IonToolbar><IonTitle>Admin Dashboard</IonTitle></IonToolbar>
       </IonHeader>
       <IonContent>
         <IonRefresher slot="fixed" onIonRefresh={async (e) => { await fetchOrders(filterStatus); (e.target as any).complete(); }}>
@@ -85,11 +85,11 @@ const AdminDashboardPage: React.FC = () => {
           {/* Quick Actions */}
           <div style={{ display: 'flex', gap: 10, marginBottom: 16 }}>
             <button onClick={() => history.push('/pos')}
-              style={{ flex: 1, background: '#C8905A', color: '#1A0800', border: 'none', borderRadius: 10, padding: '12px 16px', fontWeight: 700, fontSize: 14, cursor: 'pointer' }}>
+              style={{ flex: 1, background: '#eeab34', color: '#043553', border: 'none', borderRadius: 10, padding: '12px 16px', fontWeight: 700, fontSize: 14, cursor: 'pointer' }}>
               🖥️ Open POS
             </button>
             <button onClick={() => history.push('/admin/inventory')}
-              style={{ flex: 1, background: 'transparent', color: '#3D1C02', border: '2px solid #3D1C02', borderRadius: 10, padding: '12px 16px', fontWeight: 600, fontSize: 14, cursor: 'pointer' }}>
+              style={{ flex: 1, background: 'transparent', color: '#096bac', border: '2px solid #096bac', borderRadius: 10, padding: '12px 16px', fontWeight: 600, fontSize: 14, cursor: 'pointer' }}>
               📦 Inventory
             </button>
           </div>
@@ -101,8 +101,8 @@ const AdminDashboardPage: React.FC = () => {
                 style={{
                   padding: '7px 16px', borderRadius: 20, border: 'none', cursor: 'pointer',
                   fontWeight: 600, fontSize: 13, whiteSpace: 'nowrap',
-                  background: filterStatus === s ? '#3D1C02' : '#F5E6D3',
-                  color: filterStatus === s ? '#FDF6EC' : '#6B3A1F',
+                  background: filterStatus === s ? '#096bac' : '#e3eef6',
+                  color: filterStatus === s ? '#ffffff' : '#2b86bf',
                 }}>
                 {s}
               </button>
@@ -122,7 +122,7 @@ const AdminDashboardPage: React.FC = () => {
           )}
 
           {!loading && orders.length === 0 && (
-            <div style={{ textAlign: 'center', padding: '40px 20px', color: '#7A5C45' }}>
+            <div style={{ textAlign: 'center', padding: '40px 20px', color: '#4f6b80' }}>
               <div style={{ fontSize: 48 }}>✅</div>
               <p>No {filterStatus.toLowerCase()} orders yet.</p>
             </div>
@@ -135,7 +135,7 @@ const AdminDashboardPage: React.FC = () => {
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 10 }}>
                 <div>
                   <h3 style={{ fontFamily: 'serif', margin: '0 0 2px', fontSize: 17 }}>Order #{order.id}</h3>
-                  <p style={{ margin: 0, fontSize: 12, color: '#7A5C45' }}>{order.user_email}</p>
+                  <p style={{ margin: 0, fontSize: 12, color: '#4f6b80' }}>{order.user_email}</p>
                   <p style={{ margin: 0, fontSize: 11, color: '#aaa' }}>
                     {new Date(order.created_at).toLocaleDateString('en-NG', { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' })}
                   </p>
@@ -146,24 +146,24 @@ const AdminDashboardPage: React.FC = () => {
               </div>
 
               {/* Items */}
-              <div style={{ borderTop: '1px solid #E8D5BE', borderBottom: '1px solid #E8D5BE', padding: '8px 0', marginBottom: 12 }}>
+              <div style={{ borderTop: '1px solid #cfe0ee', borderBottom: '1px solid #cfe0ee', padding: '8px 0', marginBottom: 12 }}>
                 {order.items.map(item => (
                   <div key={item.id} style={{ display: 'flex', justifyContent: 'space-between', fontSize: 13, marginBottom: 4 }}>
                     <span>{item.product_name} ×{item.quantity}</span>
-                    <span style={{ color: '#7A5C45' }}>₦{parseFloat(item.subtotal).toLocaleString()}</span>
+                    <span style={{ color: '#4f6b80' }}>₦{parseFloat(item.subtotal).toLocaleString()}</span>
                   </div>
                 ))}
               </div>
 
               {order.notes && (
-                <div style={{ background: '#FDF6EC', borderRadius: 8, padding: '6px 10px', marginBottom: 10, fontSize: 13, color: '#7A5C45' }}>
+                <div style={{ background: '#ffffff', borderRadius: 8, padding: '6px 10px', marginBottom: 10, fontSize: 13, color: '#4f6b80' }}>
                   📝 {order.notes}
                 </div>
               )}
 
               {/* Footer */}
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                <span style={{ fontWeight: 700, fontSize: 16, color: '#3D1C02' }}>
+                <span style={{ fontWeight: 700, fontSize: 16, color: '#096bac' }}>
                   ₦{parseFloat(order.total_price).toLocaleString()}
                 </span>
 

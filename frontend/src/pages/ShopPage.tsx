@@ -46,7 +46,7 @@ const ShopPage: React.FC = () => {
     <IonPage>
       <IonHeader>
         <IonToolbar>
-          <IonTitle>🍫 Our Menu</IonTitle>
+          <IonTitle>Our Menu</IonTitle>
         </IonToolbar>
         <IonToolbar>
           <IonSearchbar
@@ -77,7 +77,7 @@ const ShopPage: React.FC = () => {
 
         {!loading && !error && products.length === 0 && (
           <div className="shop-empty">
-            <p>🍫 No products available right now.</p>
+            <p>No products available right now.</p>
           </div>
         )}
 

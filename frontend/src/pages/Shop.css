@@ -6,7 +6,7 @@
 }
 
 .add-btn {
-  background: #3D1A00;
+  background: #096bac;
   color: #fff;
   border: none;
   border-radius: 20px;
@@ -20,7 +20,7 @@
 }
 
 .add-btn:active { transform: scale(0.95); }
-.add-btn:hover { background: #2a1000; }
+.add-btn:hover { background: #043553; }
 
 .out-of-stock {
   font-size: 11px;

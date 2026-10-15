@@ -37,7 +37,7 @@ const CartPage: React.FC = () => {
           <IonToolbar><IonTitle>My Cart</IonTitle></IonToolbar>
         </IonHeader>
         <IonContent>
-          <div style={{ textAlign: 'center', padding: '60px 20px', color: '#7A5C45' }}>
+          <div style={{ textAlign: 'center', padding: '60px 20px', color: '#4f6b80' }}>
             <div style={{ fontSize: 64 }}>🛒</div>
             <h2 style={{ fontFamily: 'serif' }}>Your cart is empty</h2>
             <p>Add some chocolates from the shop!</p>
@@ -65,22 +65,22 @@ const CartPage: React.FC = () => {
 
           {items.map(item => (
             <div key={item.product.id} style={{ display: 'flex', alignItems: 'center', background: 'white', borderRadius: 14, padding: 14, marginBottom: 12, gap: 12, boxShadow: '0 2px 8px rgba(0,0,0,0.07)' }}>
-              <div style={{ width: 52, height: 52, borderRadius: 10, background: '#F5E6D3', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 28, flexShrink: 0 }}>
+              <div style={{ width: 52, height: 52, borderRadius: 10, background: '#e3eef6', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 28, flexShrink: 0 }}>
                 🍫
               </div>
               <div style={{ flex: 1 }}>
                 <p style={{ fontWeight: 600, margin: '0 0 4px', fontSize: 15 }}>{item.product.name}</p>
-                <p style={{ margin: 0, fontSize: 13, color: '#7A5C45' }}>₦{(parseFloat(item.product.price) * item.quantity).toLocaleString()}</p>
+                <p style={{ margin: 0, fontSize: 13, color: '#4f6b80' }}>₦{(parseFloat(item.product.price) * item.quantity).toLocaleString()}</p>
               </div>
               <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
                 <button onClick={() => updateQuantity(item.product.id, item.quantity - 1)}
-                  style={{ width: 32, height: 32, borderRadius: '50%', border: '2px solid #6B3A1F', background: 'transparent', color: '#6B3A1F', fontSize: 18, cursor: 'pointer' }}>
+                  style={{ width: 32, height: 32, borderRadius: '50%', border: '2px solid #2b86bf', background: 'transparent', color: '#2b86bf', fontSize: 18, cursor: 'pointer' }}>
                   -
                 </button>
                 <span style={{ fontWeight: 700, minWidth: 20, textAlign: 'center' }}>{item.quantity}</span>
                 <button onClick={() => updateQuantity(item.product.id, item.quantity + 1)}
                   disabled={item.quantity >= item.product.stock_quantity}
-                  style={{ width: 32, height: 32, borderRadius: '50%', border: 'none', background: '#6B3A1F', color: 'white', fontSize: 18, cursor: 'pointer' }}>
+                  style={{ width: 32, height: 32, borderRadius: '50%', border: 'none', background: '#2b86bf', color: 'white', fontSize: 18, cursor: 'pointer' }}>
                   +
                 </button>
                 <button onClick={() => removeItem(item.product.id)}
@@ -92,7 +92,7 @@ const CartPage: React.FC = () => {
           ))}
 
           <div style={{ marginTop: 16 }}>
-            <label style={{ fontSize: 13, fontWeight: 600, color: '#7A5C45', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
+            <label style={{ fontSize: 13, fontWeight: 600, color: '#4f6b80', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
               Notes (optional)
             </label>
             <textarea
@@ -100,12 +100,12 @@ const CartPage: React.FC = () => {
               onChange={e => setNotes(e.target.value)}
               rows={3}
               placeholder="Any special requests..."
-              style={{ width: '100%', borderRadius: 10, border: '2px solid #E8D5BE', padding: '10px 12px', fontFamily: 'inherit', fontSize: 14, marginTop: 6, resize: 'none', outline: 'none' }}
+              style={{ width: '100%', borderRadius: 10, border: '2px solid #cfe0ee', padding: '10px 12px', fontFamily: 'inherit', fontSize: 14, marginTop: 6, resize: 'none', outline: 'none' }}
             />
           </div>
 
           <div style={{ background: 'white', borderRadius: 16, padding: 20, marginTop: 16 }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', fontWeight: 700, fontSize: 18, color: '#1A0800', borderTop: '2px solid #E8D5BE', paddingTop: 12 }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', fontWeight: 700, fontSize: 18, color: '#043553', borderTop: '2px solid #cfe0ee', paddingTop: 12 }}>
               <span>Total</span>
               <span>₦{totalPrice.toLocaleString()}</span>
             </div>
@@ -114,7 +114,7 @@ const CartPage: React.FC = () => {
           <button
             onClick={handleCheckout}
             disabled={loading}
-            style={{ width: '100%', background: '#3D1C02', color: '#FDF6EC', border: 'none', borderRadius: 12, padding: '14px 24px', fontSize: 15, fontWeight: 600, cursor: 'pointer', marginTop: 16 }}>
+            style={{ width: '100%', background: '#096bac', color: '#ffffff', border: 'none', borderRadius: 12, padding: '14px 24px', fontSize: 15, fontWeight: 600, cursor: 'pointer', marginTop: 16 }}>
             {loading ? 'Placing Order...' : `Place Order • ₦${totalPrice.toLocaleString()}`}
           </button>
         </div>

@@ -4,16 +4,16 @@
 }
 
 .cart-fab-btn {
-  --background: #5C2E00;
-  --box-shadow: 0 6px 20px rgba(92, 46, 0, 0.5);
+  --background: #096bac;
+  --box-shadow: 0 6px 20px rgba(9,107,172, 0.5);
 }
 
 .cart-badge {
   position: absolute;
   top: -4px;
   right: -4px;
-  background: #D4AF37;
-  color: #2C1200;
+  background: #eeab34;
+  color: #064a78;
   font-weight: 700;
   font-size: 11px;
   min-width: 20px;

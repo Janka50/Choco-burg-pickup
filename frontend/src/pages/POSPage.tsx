@@ -110,7 +110,7 @@ const POSPage: React.FC = () => {
         .total{font-weight:bold;font-size:18px;border-top:1px dashed #000;margin-top:8px;padding-top:8px}
         .center{text-align:center}
       </style></head><body>
-      <h2>🍫 Chocoburg</h2>
+      <h2>Chocoburg</h2>
       <p class="center">Receipt #${lastReceipt.receipt_number}</p>
       <p class="center">${new Date(lastReceipt.created_at).toLocaleString()}</p>
       <hr/>
@@ -139,11 +139,11 @@ const POSPage: React.FC = () => {
   return (
     <IonPage>
       <IonHeader>
-        <IonToolbar style={{ '--background': '#3D1C02', '--color': '#FDF6EC' } as any}>
-          <IonTitle>🍫 Chocoburg POS</IonTitle>
+        <IonToolbar style={{ '--background': '#096bac', '--color': '#ffffff' } as any}>
+          <IonTitle>Chocoburg POS</IonTitle>
           <div slot="end" style={{ paddingRight: 16 }}>
             <button onClick={() => history.push('/admin')}
-              style={{ background: 'transparent', color: '#FDF6EC', border: '1px solid rgba(255,255,255,0.4)', padding: '6px 14px', borderRadius: 8, cursor: 'pointer', fontSize: 13 }}>
+              style={{ background: 'transparent', color: '#ffffff', border: '1px solid rgba(255,255,255,0.4)', padding: '6px 14px', borderRadius: 8, cursor: 'pointer', fontSize: 13 }}>
               ← Admin
             </button>
           </div>
@@ -153,7 +153,7 @@ const POSPage: React.FC = () => {
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 380px', height: 'calc(100vh - 56px)', overflow: 'hidden' }}>
 
           {/* LEFT — Products */}
-          <div style={{ padding: 16, overflowY: 'auto', background: '#FDF6EC' }}>
+          <div style={{ padding: 16, overflowY: 'auto', background: '#ffffff' }}>
             {!session?.is_active && (
               <div style={{ background: '#FEF9E7', border: '2px solid #E67E22', borderRadius: 12, padding: 16, marginBottom: 16, textAlign: 'center' }}>
                 <p style={{ margin: '0 0 10px', color: '#E67E22', fontWeight: 600 }}>⚠️ No active session</p>
@@ -164,22 +164,22 @@ const POSPage: React.FC = () => {
               </div>
             )}
 
-            <h3 style={{ fontFamily: 'serif', margin: '0 0 16px', color: '#1A0800' }}>Products</h3>
+            <h3 style={{ fontFamily: 'serif', margin: '0 0 16px', color: '#043553' }}>Products</h3>
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(150px, 1fr))', gap: 12 }}>
               {products.map(product => (
                 <button key={product.id} onClick={() => addToCart(product)}
                   disabled={product.stock_quantity === 0}
                   style={{
                     background: product.stock_quantity === 0 ? '#F5F5F5' : 'white',
-                    border: '2px solid #E8D5BE', borderRadius: 12, padding: 14,
+                    border: '2px solid #cfe0ee', borderRadius: 12, padding: 14,
                     cursor: product.stock_quantity === 0 ? 'not-allowed' : 'pointer',
                     textAlign: 'left', opacity: product.stock_quantity === 0 ? 0.6 : 1,
                     transition: 'transform 0.1s',
                   }}>
                   <div style={{ fontSize: 28, marginBottom: 6 }}>🍫</div>
-                  <div style={{ fontWeight: 600, fontSize: 13, color: '#1A0800', marginBottom: 4 }}>{product.name}</div>
-                  <div style={{ fontSize: 15, fontWeight: 700, color: '#6B3A1F' }}>₦{parseFloat(product.price).toLocaleString()}</div>
-                  <div style={{ fontSize: 11, color: product.stock_quantity <= 5 ? '#C0392B' : '#7A5C45', marginTop: 4 }}>
+                  <div style={{ fontWeight: 600, fontSize: 13, color: '#043553', marginBottom: 4 }}>{product.name}</div>
+                  <div style={{ fontSize: 15, fontWeight: 700, color: '#2b86bf' }}>₦{parseFloat(product.price).toLocaleString()}</div>
+                  <div style={{ fontSize: 11, color: product.stock_quantity <= 5 ? '#C0392B' : '#4f6b80', marginTop: 4 }}>
                     {product.stock_quantity === 0 ? 'Out of stock' : `${product.stock_quantity} left`}
                   </div>
                 </button>
@@ -188,7 +188,7 @@ const POSPage: React.FC = () => {
           </div>
 
           {/* RIGHT — Cart & Checkout */}
-          <div style={{ background: '#3D1C02', color: '#FDF6EC', display: 'flex', flexDirection: 'column', height: '100%' }}>
+          <div style={{ background: '#096bac', color: '#ffffff', display: 'flex', flexDirection: 'column', height: '100%' }}>
 
             {/* Cart items */}
             <div style={{ flex: 1, overflowY: 'auto', padding: 16 }}>
@@ -197,7 +197,7 @@ const POSPage: React.FC = () => {
               </h3>
 
               {cart.length === 0 ? (
-                <div style={{ textAlign: 'center', padding: '40px 20px', color: 'rgba(253,246,236,0.5)' }}>
+                <div style={{ textAlign: 'center', padding: '40px 20px', color: 'rgba(255,255,255,0.5)' }}>
                   <div style={{ fontSize: 40 }}>🛒</div>
                   <p>Tap products to add</p>
                 </div>
@@ -206,14 +206,14 @@ const POSPage: React.FC = () => {
                   <div key={item.product.id} style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 12, background: 'rgba(255,255,255,0.08)', borderRadius: 10, padding: 10 }}>
                     <div style={{ flex: 1 }}>
                       <p style={{ margin: 0, fontWeight: 600, fontSize: 13 }}>{item.product.name}</p>
-                      <p style={{ margin: 0, fontSize: 12, color: '#C8905A' }}>₦{parseFloat(item.product.price).toLocaleString()} each</p>
+                      <p style={{ margin: 0, fontSize: 12, color: '#eeab34' }}>₦{parseFloat(item.product.price).toLocaleString()} each</p>
                     </div>
                     <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
                       <button onClick={() => updateQty(item.product.id, item.quantity - 1)}
                         style={{ width: 28, height: 28, borderRadius: '50%', border: 'none', background: 'rgba(255,255,255,0.2)', color: 'white', cursor: 'pointer', fontSize: 16 }}>-</button>
                       <span style={{ minWidth: 20, textAlign: 'center', fontWeight: 700 }}>{item.quantity}</span>
                       <button onClick={() => updateQty(item.product.id, item.quantity + 1)}
-                        style={{ width: 28, height: 28, borderRadius: '50%', border: 'none', background: '#C8905A', color: 'white', cursor: 'pointer', fontSize: 16 }}>+</button>
+                        style={{ width: 28, height: 28, borderRadius: '50%', border: 'none', background: '#eeab34', color: 'white', cursor: 'pointer', fontSize: 16 }}>+</button>
                     </div>
                     <span style={{ fontWeight: 700, minWidth: 70, textAlign: 'right' }}>
                       ₦{(parseFloat(item.product.price) * item.quantity).toLocaleString()}
@@ -233,14 +233,14 @@ const POSPage: React.FC = () => {
 
               <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 24, fontWeight: 800, marginBottom: 14 }}>
                 <span>TOTAL</span>
-                <span style={{ color: '#C8905A' }}>₦{total.toLocaleString()}</span>
+                <span style={{ color: '#eeab34' }}>₦{total.toLocaleString()}</span>
               </div>
 
               {/* Payment method */}
               <div style={{ display: 'flex', gap: 8, marginBottom: 12 }}>
                 {['CASH', 'CARD', 'TRANSFER'].map(m => (
                   <button key={m} onClick={() => setPaymentMethod(m)}
-                    style={{ flex: 1, padding: '8px 4px', borderRadius: 8, border: 'none', cursor: 'pointer', fontSize: 12, fontWeight: 600, background: paymentMethod === m ? '#C8905A' : 'rgba(255,255,255,0.15)', color: paymentMethod === m ? '#1A0800' : '#FDF6EC' }}>
+                    style={{ flex: 1, padding: '8px 4px', borderRadius: 8, border: 'none', cursor: 'pointer', fontSize: 12, fontWeight: 600, background: paymentMethod === m ? '#eeab34' : 'rgba(255,255,255,0.15)', color: paymentMethod === m ? '#043553' : '#ffffff' }}>
                     {m}
                   </button>
                 ))}
@@ -248,7 +248,7 @@ const POSPage: React.FC = () => {
 
               {/* Amount paid */}
               <div style={{ marginBottom: 12 }}>
-                <label style={{ fontSize: 12, color: 'rgba(253,246,236,0.7)', display: 'block', marginBottom: 4 }}>Amount Received (₦)</label>
+                <label style={{ fontSize: 12, color: 'rgba(255,255,255,0.7)', display: 'block', marginBottom: 4 }}>Amount Received (₦)</label>
                 <input type="number" value={amountPaid} onChange={e => setAmountPaid(e.target.value)}
                   placeholder="0.00"
                   style={{ width: '100%', padding: '10px 14px', borderRadius: 8, border: 'none', fontSize: 18, fontWeight: 700, boxSizing: 'border-box' }}
@@ -258,7 +258,7 @@ const POSPage: React.FC = () => {
               {/* Change */}
               {parseFloat(amountPaid) > 0 && (
                 <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 14, fontSize: 16 }}>
-                  <span style={{ color: 'rgba(253,246,236,0.7)' }}>Change</span>
+                  <span style={{ color: 'rgba(255,255,255,0.7)' }}>Change</span>
                   <span style={{ fontWeight: 700, color: change >= 0 ? '#2ECC71' : '#E74C3C' }}>
                     ₦{Math.max(0, change).toLocaleString()}
                   </span>
@@ -266,20 +266,20 @@ const POSPage: React.FC = () => {
               )}
 
               <button onClick={processSale} disabled={processing || cart.length === 0}
-                style={{ width: '100%', padding: '14px', background: '#C8905A', color: '#1A0800', border: 'none', borderRadius: 12, fontSize: 16, fontWeight: 800, cursor: 'pointer', marginBottom: 8, opacity: processing || cart.length === 0 ? 0.6 : 1 }}>
+                style={{ width: '100%', padding: '14px', background: '#eeab34', color: '#043553', border: 'none', borderRadius: 12, fontSize: 16, fontWeight: 800, cursor: 'pointer', marginBottom: 8, opacity: processing || cart.length === 0 ? 0.6 : 1 }}>
                 {processing ? 'Processing...' : '✅ Complete Sale'}
               </button>
 
               {lastReceipt && (
                 <button onClick={printReceipt}
-                  style={{ width: '100%', padding: '10px', background: 'transparent', color: '#FDF6EC', border: '1px solid rgba(255,255,255,0.3)', borderRadius: 12, fontSize: 14, cursor: 'pointer' }}>
+                  style={{ width: '100%', padding: '10px', background: 'transparent', color: '#ffffff', border: '1px solid rgba(255,255,255,0.3)', borderRadius: 12, fontSize: 14, cursor: 'pointer' }}>
                   🖨️ Print Last Receipt #{lastReceipt.receipt_number}
                 </button>
               )}
 
               {cart.length > 0 && (
                 <button onClick={() => setCart([])}
-                  style={{ width: '100%', padding: '8px', background: 'transparent', color: 'rgba(253,246,236,0.5)', border: 'none', cursor: 'pointer', fontSize: 13, marginTop: 4 }}>
+                  style={{ width: '100%', padding: '8px', background: 'transparent', color: 'rgba(255,255,255,0.5)', border: 'none', cursor: 'pointer', fontSize: 13, marginTop: 4 }}>
                   Clear Cart
                 </button>
               )}
@@ -291,13 +291,13 @@ const POSPage: React.FC = () => {
         {lastReceipt && (
           <div style={{ position: 'fixed', top: 70, right: 400, background: 'white', borderRadius: 16, padding: 20, boxShadow: '0 8px 32px rgba(0,0,0,0.2)', minWidth: 260, zIndex: 100 }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 12 }}>
-              <strong style={{ color: '#1A0800' }}>✅ Sale Complete!</strong>
+              <strong style={{ color: '#043553' }}>✅ Sale Complete!</strong>
               <button onClick={() => setLastReceipt(null)} style={{ background: 'none', border: 'none', cursor: 'pointer', fontSize: 18 }}>×</button>
             </div>
-            <p style={{ margin: '0 0 4px', fontSize: 13, color: '#7A5C45' }}>Receipt #{lastReceipt.receipt_number}</p>
-            <p style={{ margin: '0 0 12px', fontSize: 20, fontWeight: 700, color: '#3D1C02' }}>₦{parseFloat(lastReceipt.total_amount).toLocaleString()}</p>
+            <p style={{ margin: '0 0 4px', fontSize: 13, color: '#4f6b80' }}>Receipt #{lastReceipt.receipt_number}</p>
+            <p style={{ margin: '0 0 12px', fontSize: 20, fontWeight: 700, color: '#096bac' }}>₦{parseFloat(lastReceipt.total_amount).toLocaleString()}</p>
             <button onClick={printReceipt}
-              style={{ width: '100%', background: '#3D1C02', color: 'white', border: 'none', borderRadius: 8, padding: '10px', cursor: 'pointer', fontWeight: 600 }}>
+              style={{ width: '100%', background: '#096bac', color: 'white', border: 'none', borderRadius: 8, padding: '10px', cursor: 'pointer', fontWeight: 600 }}>
               🖨️ Print Receipt
             </button>
           </div>

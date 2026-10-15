@@ -1,10 +1,10 @@
 .admin-order-card {
-  background: #FDF9F4;
-  border: 1px solid #EDE5D8;
+  background: #ffffff;
+  border: 1px solid #d9e7f1;
   border-radius: 16px;
   padding: 16px;
   margin-bottom: 12px;
-  box-shadow: 0 2px 8px rgba(61, 26, 0, 0.06);
+  box-shadow: 0 2px 8px rgba(9,107,172, 0.06);
 }
 
 .admin-order-header {
@@ -16,13 +16,13 @@
 
 .customer-name {
   font-size: 12px;
-  color: #8b6347;
+  color: #56758a;
   margin: 2px 0 0;
 }
 
 .admin-order-items {
   background: #fff;
-  border: 1px solid #EDE5D8;
+  border: 1px solid #d9e7f1;
   border-radius: 10px;
   overflow: hidden;
   margin-bottom: 10px;
@@ -33,12 +33,12 @@
   justify-content: space-between;
   padding: 8px 12px;
   font-size: 14px;
-  color: #1a0a00;
-  border-bottom: 1px solid #EDE5D8;
+  color: #043553;
+  border-bottom: 1px solid #d9e7f1;
 }
 .admin-item-row:last-child { border-bottom: none; }
 
-.item-subtotal { font-weight: 700; color: #3D1A00; font-family: Georgia, serif; }
+.item-subtotal { font-weight: 700; color: #096bac; font-family: Georgia, serif; }
 
 .order-notes-box {
   background: #FFF8E7;
@@ -50,7 +50,7 @@
   margin-bottom: 8px;
 }
 
-.order-time { font-size: 12px; color: #8b6347; margin: 0 0 12px; }
+.order-time { font-size: 12px; color: #56758a; margin: 0 0 12px; }
 
 .admin-actions {
   display: flex;

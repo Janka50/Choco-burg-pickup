@@ -83,7 +83,7 @@ const OrderHistoryPage: React.FC = () => {
           )}
 
           {!loading && orders.length === 0 && (
-            <div style={{ textAlign: 'center', padding: '60px 20px', color: '#7A5C45' }}>
+            <div style={{ textAlign: 'center', padding: '60px 20px', color: '#4f6b80' }}>
               <div style={{ fontSize: 56 }}>📦</div>
               <h3 style={{ fontFamily: 'serif' }}>No orders yet</h3>
               <p>Place your first order!</p>
@@ -96,7 +96,7 @@ const OrderHistoryPage: React.FC = () => {
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 10 }}>
                 <div>
                   <h3 style={{ fontFamily: 'serif', margin: '0 0 4px', fontSize: 17 }}>Order #{order.id}</h3>
-                  <p style={{ margin: 0, fontSize: 12, color: '#7A5C45' }}>
+                  <p style={{ margin: 0, fontSize: 12, color: '#4f6b80' }}>
                     {new Date(order.created_at).toLocaleDateString('en-NG', { day: 'numeric', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' })}
                   </p>
                 </div>
@@ -105,18 +105,18 @@ const OrderHistoryPage: React.FC = () => {
                 </span>
               </div>
 
-              <div style={{ borderTop: '1px solid #E8D5BE', borderBottom: '1px solid #E8D5BE', padding: '8px 0', marginBottom: 10 }}>
+              <div style={{ borderTop: '1px solid #cfe0ee', borderBottom: '1px solid #cfe0ee', padding: '8px 0', marginBottom: 10 }}>
                 {order.items.map(item => (
                   <div key={item.id} style={{ display: 'flex', justifyContent: 'space-between', fontSize: 13, marginBottom: 4 }}>
                     <span>{item.product_name} x{item.quantity}</span>
-                    <span style={{ color: '#7A5C45' }}>₦{parseFloat(item.subtotal).toLocaleString()}</span>
+                    <span style={{ color: '#4f6b80' }}>₦{parseFloat(item.subtotal).toLocaleString()}</span>
                   </div>
                 ))}
               </div>
 
               <div style={{ display: 'flex', justifyContent: 'space-between', fontWeight: 700 }}>
-                <span style={{ color: '#7A5C45', fontSize: 13 }}>{order.items.length} item{order.items.length !== 1 ? 's' : ''}</span>
-                <span style={{ color: '#6B3A1F', fontSize: 16 }}>₦{parseFloat(order.total_price).toLocaleString()}</span>
+                <span style={{ color: '#4f6b80', fontSize: 13 }}>{order.items.length} item{order.items.length !== 1 ? 's' : ''}</span>
+                <span style={{ color: '#2b86bf', fontSize: 16 }}>₦{parseFloat(order.total_price).toLocaleString()}</span>
               </div>
 
               {order.status === 'APPROVED' && (

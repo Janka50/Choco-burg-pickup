@@ -115,15 +115,15 @@ const AdminInventoryPage: React.FC = () => {
   return (
     <IonPage>
       <IonHeader>
-        <IonToolbar style={{ '--background': '#3D1C02', '--color': '#FDF6EC' } as any}>
+        <IonToolbar style={{ '--background': '#096bac', '--color': '#ffffff' } as any}>
           <IonTitle>📦 Inventory</IonTitle>
           <div slot="end" style={{ paddingRight: 16, display: 'flex', gap: 8 }}>
             <button onClick={() => history.push('/admin')}
-              style={{ background: 'transparent', color: '#FDF6EC', border: '1px solid rgba(255,255,255,0.4)', padding: '6px 12px', borderRadius: 8, cursor: 'pointer', fontSize: 12 }}>
+              style={{ background: 'transparent', color: '#ffffff', border: '1px solid rgba(255,255,255,0.4)', padding: '6px 12px', borderRadius: 8, cursor: 'pointer', fontSize: 12 }}>
               ← Admin
             </button>
             <button onClick={openAdd}
-              style={{ background: '#C8905A', color: '#1A0800', border: 'none', padding: '6px 14px', borderRadius: 8, cursor: 'pointer', fontSize: 12, fontWeight: 700 }}>
+              style={{ background: '#eeab34', color: '#043553', border: 'none', padding: '6px 14px', borderRadius: 8, cursor: 'pointer', fontSize: 12, fontWeight: 700 }}>
               + Add Product
             </button>
           </div>
@@ -152,7 +152,7 @@ const AdminInventoryPage: React.FC = () => {
           {/* ADD/EDIT FORM */}
           {showForm && (
             <div style={{ background: 'white', borderRadius: 16, padding: 20, marginBottom: 20, boxShadow: '0 4px 16px rgba(0,0,0,0.1)' }}>
-              <h3 style={{ fontFamily: 'serif', margin: '0 0 16px', color: '#1A0800' }}>
+              <h3 style={{ fontFamily: 'serif', margin: '0 0 16px', color: '#043553' }}>
                 {editProduct ? `Edit: ${editProduct.name}` : '➕ Add New Product'}
               </h3>
 
@@ -165,43 +165,43 @@ const AdminInventoryPage: React.FC = () => {
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 14 }}>
                 {/* Name */}
                 <div style={{ gridColumn: '1/-1' }}>
-                  <label style={{ display: 'block', fontSize: 12, fontWeight: 600, color: '#7A5C45', textTransform: 'uppercase', marginBottom: 4 }}>Product Name *</label>
+                  <label style={{ display: 'block', fontSize: 12, fontWeight: 600, color: '#4f6b80', textTransform: 'uppercase', marginBottom: 4 }}>Product Name *</label>
                   <input value={form.name} onChange={e => setForm(f => ({ ...f, name: e.target.value }))}
                     placeholder="e.g. Dark Chocolate Bar"
-                    style={{ width: '100%', border: '2px solid #E8D5BE', borderRadius: 8, padding: '10px 12px', fontSize: 14, outline: 'none', boxSizing: 'border-box' }} />
+                    style={{ width: '100%', border: '2px solid #cfe0ee', borderRadius: 8, padding: '10px 12px', fontSize: 14, outline: 'none', boxSizing: 'border-box' }} />
                 </div>
 
                 {/* Description */}
                 <div style={{ gridColumn: '1/-1' }}>
-                  <label style={{ display: 'block', fontSize: 12, fontWeight: 600, color: '#7A5C45', textTransform: 'uppercase', marginBottom: 4 }}>Description</label>
+                  <label style={{ display: 'block', fontSize: 12, fontWeight: 600, color: '#4f6b80', textTransform: 'uppercase', marginBottom: 4 }}>Description</label>
                   <textarea value={form.description} onChange={e => setForm(f => ({ ...f, description: e.target.value }))}
                     placeholder="Product description..."
                     rows={2}
-                    style={{ width: '100%', border: '2px solid #E8D5BE', borderRadius: 8, padding: '10px 12px', fontSize: 14, outline: 'none', boxSizing: 'border-box', resize: 'none', fontFamily: 'inherit' }} />
+                    style={{ width: '100%', border: '2px solid #cfe0ee', borderRadius: 8, padding: '10px 12px', fontSize: 14, outline: 'none', boxSizing: 'border-box', resize: 'none', fontFamily: 'inherit' }} />
                 </div>
 
                 {/* Price */}
                 <div>
-                  <label style={{ display: 'block', fontSize: 12, fontWeight: 600, color: '#7A5C45', textTransform: 'uppercase', marginBottom: 4 }}>Price (₦) *</label>
+                  <label style={{ display: 'block', fontSize: 12, fontWeight: 600, color: '#4f6b80', textTransform: 'uppercase', marginBottom: 4 }}>Price (₦) *</label>
                   <input type="number" value={form.price} onChange={e => setForm(f => ({ ...f, price: e.target.value }))}
                     placeholder="0.00" step="0.01"
-                    style={{ width: '100%', border: '2px solid #E8D5BE', borderRadius: 8, padding: '10px 12px', fontSize: 14, outline: 'none', boxSizing: 'border-box' }} />
+                    style={{ width: '100%', border: '2px solid #cfe0ee', borderRadius: 8, padding: '10px 12px', fontSize: 14, outline: 'none', boxSizing: 'border-box' }} />
                 </div>
 
                 {/* Stock */}
                 <div>
-                  <label style={{ display: 'block', fontSize: 12, fontWeight: 600, color: '#7A5C45', textTransform: 'uppercase', marginBottom: 4 }}>Stock Quantity *</label>
+                  <label style={{ display: 'block', fontSize: 12, fontWeight: 600, color: '#4f6b80', textTransform: 'uppercase', marginBottom: 4 }}>Stock Quantity *</label>
                   <input type="number" value={form.stock_quantity} onChange={e => setForm(f => ({ ...f, stock_quantity: e.target.value }))}
                     placeholder="0"
-                    style={{ width: '100%', border: '2px solid #E8D5BE', borderRadius: 8, padding: '10px 12px', fontSize: 14, outline: 'none', boxSizing: 'border-box' }} />
+                    style={{ width: '100%', border: '2px solid #cfe0ee', borderRadius: 8, padding: '10px 12px', fontSize: 14, outline: 'none', boxSizing: 'border-box' }} />
                 </div>
 
                 {/* Image */}
                 <div style={{ gridColumn: '1/-1' }}>
-                  <label style={{ display: 'block', fontSize: 12, fontWeight: 600, color: '#7A5C45', textTransform: 'uppercase', marginBottom: 4 }}>Product Image</label>
+                  <label style={{ display: 'block', fontSize: 12, fontWeight: 600, color: '#4f6b80', textTransform: 'uppercase', marginBottom: 4 }}>Product Image</label>
                   <input type="file" accept="image/*"
                     onChange={e => setImageFile(e.target.files?.[0] || null)}
-                    style={{ width: '100%', border: '2px solid #E8D5BE', borderRadius: 8, padding: '10px 12px', fontSize: 14, boxSizing: 'border-box', background: 'white' }} />
+                    style={{ width: '100%', border: '2px solid #cfe0ee', borderRadius: 8, padding: '10px 12px', fontSize: 14, boxSizing: 'border-box', background: 'white' }} />
                   {editProduct?.image_url && !imageFile && (
                     <img src={editProduct.image_url} alt="current"
                       style={{ width: 60, height: 60, objectFit: 'cover', borderRadius: 8, marginTop: 8 }} />
@@ -213,7 +213,7 @@ const AdminInventoryPage: React.FC = () => {
                   <input type="checkbox" id="available" checked={form.is_available}
                     onChange={e => setForm(f => ({ ...f, is_available: e.target.checked }))}
                     style={{ width: 18, height: 18, cursor: 'pointer' }} />
-                  <label htmlFor="available" style={{ fontSize: 14, color: '#1A0800', cursor: 'pointer', fontWeight: 500 }}>
+                  <label htmlFor="available" style={{ fontSize: 14, color: '#043553', cursor: 'pointer', fontWeight: 500 }}>
                     Available for purchase
                   </label>
                 </div>
@@ -221,11 +221,11 @@ const AdminInventoryPage: React.FC = () => {
 
               <div style={{ display: 'flex', gap: 10, marginTop: 18 }}>
                 <button onClick={handleSave} disabled={saving}
-                  style={{ flex: 1, background: '#3D1C02', color: '#FDF6EC', border: 'none', borderRadius: 10, padding: '12px', fontSize: 14, fontWeight: 700, cursor: saving ? 'not-allowed' : 'pointer', opacity: saving ? 0.7 : 1 }}>
+                  style={{ flex: 1, background: '#096bac', color: '#ffffff', border: 'none', borderRadius: 10, padding: '12px', fontSize: 14, fontWeight: 700, cursor: saving ? 'not-allowed' : 'pointer', opacity: saving ? 0.7 : 1 }}>
                   {saving ? 'Saving...' : editProduct ? '💾 Update Product' : '✅ Add Product'}
                 </button>
                 <button onClick={() => { setShowForm(false); setError(''); }}
-                  style={{ background: 'transparent', color: '#7A5C45', border: '2px solid #E8D5BE', borderRadius: 10, padding: '12px 20px', fontSize: 14, cursor: 'pointer' }}>
+                  style={{ background: 'transparent', color: '#4f6b80', border: '2px solid #cfe0ee', borderRadius: 10, padding: '12px 20px', fontSize: 14, cursor: 'pointer' }}>
                   Cancel
                 </button>
               </div>
@@ -236,13 +236,13 @@ const AdminInventoryPage: React.FC = () => {
           {!loading && (
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 12, marginBottom: 20 }}>
               {[
-                { label: 'Total Products', value: products.length, color: '#6B3A1F' },
+                { label: 'Total Products', value: products.length, color: '#2b86bf' },
                 { label: 'Low Stock (≤5)', value: products.filter(p => p.stock_quantity <= 5 && p.stock_quantity > 0).length, color: '#E67E22' },
                 { label: 'Out of Stock', value: products.filter(p => p.stock_quantity === 0).length, color: '#C0392B' },
               ].map(s => (
                 <div key={s.label} style={{ background: 'white', borderRadius: 14, padding: 16, textAlign: 'center', boxShadow: '0 2px 8px rgba(0,0,0,0.06)' }}>
                   <div style={{ fontWeight: 800, fontSize: 28, color: s.color }}>{s.value}</div>
-                  <div style={{ fontSize: 11, color: '#7A5C45', fontWeight: 600, marginTop: 2 }}>{s.label}</div>
+                  <div style={{ fontSize: 11, color: '#4f6b80', fontWeight: 600, marginTop: 2 }}>{s.label}</div>
                 </div>
               ))}
             </div>
@@ -254,11 +254,11 @@ const AdminInventoryPage: React.FC = () => {
               <IonSpinner name="crescent" />
             </div>
           ) : products.length === 0 ? (
-            <div style={{ textAlign: 'center', padding: '40px 20px', color: '#7A5C45' }}>
+            <div style={{ textAlign: 'center', padding: '40px 20px', color: '#4f6b80' }}>
               <div style={{ fontSize: 48 }}>📦</div>
               <p>No products yet. Add your first product!</p>
               <button onClick={openAdd}
-                style={{ background: '#3D1C02', color: '#FDF6EC', border: 'none', borderRadius: 10, padding: '12px 24px', fontSize: 14, fontWeight: 600, cursor: 'pointer', marginTop: 8 }}>
+                style={{ background: '#096bac', color: '#ffffff', border: 'none', borderRadius: 10, padding: '12px 24px', fontSize: 14, fontWeight: 600, cursor: 'pointer', marginTop: 8 }}>
                 + Add Product
               </button>
             </div>
@@ -266,7 +266,7 @@ const AdminInventoryPage: React.FC = () => {
             products.map(product => (
               <div key={product.id} style={{ background: 'white', borderRadius: 14, padding: 14, marginBottom: 10, boxShadow: '0 2px 8px rgba(0,0,0,0.06)', display: 'flex', alignItems: 'center', gap: 14 }}>
                 {/* Image */}
-                <div style={{ width: 56, height: 56, borderRadius: 10, background: '#F5E6D3', display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden', flexShrink: 0 }}>
+                <div style={{ width: 56, height: 56, borderRadius: 10, background: '#e3eef6', display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden', flexShrink: 0 }}>
                   {product.image_url
                     ? <img src={product.image_url} alt={product.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                     : <span style={{ fontSize: 28 }}>🍫</span>}
@@ -274,8 +274,8 @@ const AdminInventoryPage: React.FC = () => {
 
                 {/* Info */}
                 <div style={{ flex: 1, minWidth: 0 }}>
-                  <p style={{ fontWeight: 700, margin: '0 0 2px', fontSize: 15, color: '#1A0800' }}>{product.name}</p>
-                  <p style={{ margin: '0 0 4px', fontSize: 12, color: '#7A5C45' }}>₦{parseFloat(product.price).toLocaleString()}</p>
+                  <p style={{ fontWeight: 700, margin: '0 0 2px', fontSize: 15, color: '#043553' }}>{product.name}</p>
+                  <p style={{ margin: '0 0 4px', fontSize: 12, color: '#4f6b80' }}>₦{parseFloat(product.price).toLocaleString()}</p>
                   <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
                     <span style={{
                       fontSize: 11, fontWeight: 600, padding: '2px 8px', borderRadius: 20,
@@ -297,7 +297,7 @@ const AdminInventoryPage: React.FC = () => {
                 {/* Actions */}
                 <div style={{ display: 'flex', gap: 8, flexShrink: 0 }}>
                   <button onClick={() => openEdit(product)}
-                    style={{ background: '#3D1C02', color: '#FDF6EC', border: 'none', borderRadius: 8, padding: '8px 14px', fontSize: 12, fontWeight: 600, cursor: 'pointer' }}>
+                    style={{ background: '#096bac', color: '#ffffff', border: 'none', borderRadius: 8, padding: '8px 14px', fontSize: 12, fontWeight: 600, cursor: 'pointer' }}>
                     ✏️ Edit
                   </button>
                   <button onClick={() => toggleAvailable(product)}

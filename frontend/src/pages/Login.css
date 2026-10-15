@@ -1,5 +1,5 @@
 .login-content {
-  --background: linear-gradient(160deg, #1a0a00 0%, #3D1A00 40%, #6B3A2A 100%);
+  --background: linear-gradient(160deg, #043553 0%, #096bac 40%, #2b86bf 100%);
 }
 
 .login-container {
@@ -41,7 +41,7 @@
 .login-form-card {
   width: 100%;
   max-width: 400px;
-  background: #FAF7F2;
+  background: #f4f8fb;
   border-radius: 24px;
   padding: 28px 24px 24px;
   box-shadow: 0 20px 60px rgba(0,0,0,0.35);
@@ -50,7 +50,7 @@
 .form-heading {
   font-size: 22px;
   font-weight: 700;
-  color: #1a0a00;
+  color: #043553;
   margin: 0 0 20px;
   font-family: Georgia, serif;
 }
@@ -73,7 +73,7 @@
   display: block;
   font-size: 12px;
   font-weight: 700;
-  color: #4a2e1a;
+  color: #2e4a5e;
   text-transform: uppercase;
   letter-spacing: 0.8px;
   margin-bottom: 6px;
@@ -82,10 +82,10 @@
 .form-input {
   width: 100%;
   padding: 12px 14px;
-  border: 2px solid #EDE5D8;
+  border: 2px solid #d9e7f1;
   border-radius: 10px;
   font-size: 15px;
-  color: #1a0a00;
+  color: #043553;
   background: #fff;
   outline: none;
   transition: border-color 0.2s;
@@ -93,13 +93,13 @@
 }
 
 .form-input:focus {
-  border-color: #3D1A00;
+  border-color: #096bac;
 }
 
 .submit-btn {
   width: 100%;
   padding: 14px;
-  background: #3D1A00;
+  background: #096bac;
   color: #fff;
   border: none;
   border-radius: 12px;
@@ -116,22 +116,22 @@
 }
 
 .submit-btn:active { transform: scale(0.98); }
-.submit-btn:hover { background: #2a1000; }
+.submit-btn:hover { background: #043553; }
 .submit-btn:disabled { opacity: 0.7; cursor: not-allowed; }
 
 .form-divider {
   text-align: center;
   margin: 16px 0 12px;
   font-size: 13px;
-  color: #8b6347;
+  color: #56758a;
 }
 
 .secondary-btn {
   width: 100%;
   padding: 13px;
   background: transparent;
-  color: #3D1A00;
-  border: 2px solid #3D1A00;
+  color: #096bac;
+  border: 2px solid #096bac;
   border-radius: 12px;
   font-size: 15px;
   font-weight: 600;
@@ -140,4 +140,4 @@
   font-family: inherit;
 }
 
-.secondary-btn:hover { background: rgba(61, 26, 0, 0.05); }
+.secondary-btn:hover { background: rgba(9,107,172, 0.05); }

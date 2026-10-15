@@ -57,14 +57,13 @@ const RegisterPage: React.FC = () => {
   return (
     <IonPage>
       <IonContent>
-        <div style={{ minHeight: '100vh', background: 'linear-gradient(160deg, #2C1200, #5C2E00)', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: 24 }}>
+        <div style={{ minHeight: '100vh', background: 'linear-gradient(160deg, #064a78, #096bac)', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: 24 }}>
           <div style={{ textAlign: 'center', marginBottom: 28 }}>
-            <div style={{ fontSize: 48 }}>🍫</div>
-            <h1 style={{ color: '#FDF6EC', fontFamily: 'serif', fontSize: 26, margin: '8px 0 4px' }}>Chocoburg</h1>
-            <p style={{ color: 'rgba(253,246,236,0.7)', fontSize: 14, margin: 0 }}>Create your account</p>
+            <img src="/logo.png" alt="Chocoburg" style={{ height: 90 }} />
+            <p style={{ color: 'rgba(255,255,255,0.7)', fontSize: 14, margin: 0 }}>Create your account</p>
           </div>
 
-          <div style={{ background: '#FDF6EC', borderRadius: 20, padding: 28, width: '100%', maxWidth: 400 }}>
+          <div style={{ background: '#ffffff', borderRadius: 20, padding: 28, width: '100%', maxWidth: 400 }}>
             {error && (
               <div style={{ background: '#FDEDEC', color: '#C0392B', padding: '10px 14px', borderRadius: 8, marginBottom: 16, fontSize: 14 }}>
                 {error}
@@ -73,7 +72,7 @@ const RegisterPage: React.FC = () => {
 
             {fields.map(({ key, label, type, placeholder }) => (
               <div key={key} style={{ marginBottom: 14 }}>
-                <label style={{ display: 'block', fontSize: 13, fontWeight: 600, color: '#7A5C45', textTransform: 'uppercase', letterSpacing: '0.5px', marginBottom: 6 }}>
+                <label style={{ display: 'block', fontSize: 13, fontWeight: 600, color: '#4f6b80', textTransform: 'uppercase', letterSpacing: '0.5px', marginBottom: 6 }}>
                   {label}
                 </label>
                 <input
@@ -81,7 +80,7 @@ const RegisterPage: React.FC = () => {
                   value={form[key]}
                   onChange={e => update(key, e.target.value)}
                   placeholder={placeholder || ''}
-                  style={{ width: '100%', border: '2px solid #E8D5BE', borderRadius: 10, padding: '12px 14px', fontSize: 15, outline: 'none', fontFamily: 'inherit', boxSizing: 'border-box' }}
+                  style={{ width: '100%', border: '2px solid #cfe0ee', borderRadius: 10, padding: '12px 14px', fontSize: 15, outline: 'none', fontFamily: 'inherit', boxSizing: 'border-box' }}
                 />
               </div>
             ))}
@@ -89,13 +88,13 @@ const RegisterPage: React.FC = () => {
             <button
               onClick={handleRegister}
               disabled={loading}
-              style={{ width: '100%', background: '#3D1C02', color: '#FDF6EC', border: 'none', borderRadius: 12, padding: '14px 24px', fontSize: 15, fontWeight: 600, cursor: loading ? 'not-allowed' : 'pointer', opacity: loading ? 0.7 : 1, marginTop: 8 }}>
+              style={{ width: '100%', background: '#096bac', color: '#ffffff', border: 'none', borderRadius: 12, padding: '14px 24px', fontSize: 15, fontWeight: 600, cursor: loading ? 'not-allowed' : 'pointer', opacity: loading ? 0.7 : 1, marginTop: 8 }}>
               {loading ? 'Creating account...' : 'Create Account'}
             </button>
 
-            <p style={{ textAlign: 'center', marginTop: 16, fontSize: 14, color: '#7A5C45' }}>
+            <p style={{ textAlign: 'center', marginTop: 16, fontSize: 14, color: '#4f6b80' }}>
               Already have an account?{' '}
-              <span onClick={() => history.push('/login')} style={{ color: '#6B3A1F', fontWeight: 600, cursor: 'pointer' }}>
+              <span onClick={() => history.push('/login')} style={{ color: '#2b86bf', fontWeight: 600, cursor: 'pointer' }}>
                 Sign in
               </span>
             </p>

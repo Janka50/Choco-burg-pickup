@@ -1,5 +1,5 @@
 .auth-content {
-  --background: linear-gradient(160deg, #2C1200 0%, #5C2E00 50%, #8B4513 100%);
+  --background: linear-gradient(160deg, #064a78 0%, #096bac 50%, #2b86bf 100%);
 }
 
 .auth-container {
@@ -23,7 +23,7 @@
 }
 
 .auth-title {
-  color: #FFF8F0;
+  color: #f4f8fb;
   font-size: 32px;
   font-weight: 800;
   margin: 0;
@@ -31,7 +31,7 @@
 }
 
 .auth-subtitle {
-  color: #C47A45;
+  color: #eeab34;
   font-size: 14px;
   margin: 4px 0 0;
   letter-spacing: 1px;
@@ -39,16 +39,16 @@
 }
 
 .auth-card {
-  background: #FFF8F0;
+  background: #f4f8fb;
   border-radius: 24px;
   padding: 32px 24px;
   width: 100%;
   max-width: 400px;
-  box-shadow: 0 20px 60px rgba(44, 18, 0, 0.5);
+  box-shadow: 0 20px 60px rgba(6,74,120, 0.5);
 }
 
 .auth-card h2 {
-  color: #2C1200;
+  color: #064a78;
   font-size: 22px;
   font-weight: 700;
   margin: 0 0 24px;
@@ -64,7 +64,7 @@
 }
 
 .auth-input {
-  --background: #F5E6D3;
+  --background: #e3eef6;
   --border-radius: 12px;
   --padding-start: 14px;
   --padding-end: 14px;
@@ -76,17 +76,17 @@
 .auth-input ion-label {
   font-size: 12px !important;
   font-weight: 600;
-  color: #8B4513 !important;
+  color: #2b86bf !important;
   text-transform: uppercase;
   letter-spacing: 0.5px;
   padding-top: 8px;
 }
 
 .auth-button {
-  --background: #5C2E00;
-  --background-activated: #3D1C00;
+  --background: #096bac;
+  --background-activated: #096bac;
   --border-radius: 12px;
-  --box-shadow: 0 4px 16px rgba(92, 46, 0, 0.4);
+  --box-shadow: 0 4px 16px rgba(9,107,172, 0.4);
   margin-top: 20px;
   height: 52px;
   font-weight: 700;
@@ -96,12 +96,12 @@
 
 .auth-link-text {
   text-align: center;
-  color: #8B4513;
+  color: #2b86bf;
   font-size: 14px;
   margin-top: 20px;
 }
 
 .auth-link-text ion-router-link {
-  color: #5C2E00;
+  color: #096bac;
   font-weight: 700;
 }
