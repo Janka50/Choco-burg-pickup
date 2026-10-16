@@ -1,4 +1,5 @@
 import React from "react";
+import logo from "./assets/logo.png";
 import {
   IonApp, IonRouterOutlet, IonTabs, IonTabBar, IonTabButton,
   IonIcon, IonLabel, IonSpinner, setupIonicReact,
@@ -39,7 +40,7 @@ const SplashScreen: React.FC = () => (
     height: "100vh", background: "linear-gradient(160deg, #064a78, #096bac)",
     flexDirection: "column", gap: 20,
   }}>
-    <img src="/logo.png" alt="Chocoburg" style={{ height: 110 }} />
+    <img src={logo} alt="Chocoburg" style={{ height: 110 }} />
     <IonSpinner name="crescent" style={{ "--color": "#eeab34" } as any} />
   </div>
 );

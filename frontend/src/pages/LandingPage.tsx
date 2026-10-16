@@ -1,4 +1,5 @@
 import React from 'react';
+import logo from "../assets/logo.png";
 import { useHistory } from 'react-router-dom';
 
 const LandingPage: React.FC = () => {
@@ -26,7 +27,7 @@ const LandingPage: React.FC = () => {
 
       {/* HERO */}
       <section style={{ background: 'linear-gradient(135deg, #043553 0%, #096bac 60%, #2b86bf 100%)', color: '#ffffff', padding: '100px 32px', textAlign: 'center' }}>
-        <img src="/logo.png" alt="Chocoburg" style={{ height: 150, marginBottom: 20 }} />
+        <img src={logo} alt="Chocoburg" style={{ height: 150, marginBottom: 20 }} />
         <h1 style={{ fontSize: 'clamp(32px, 6vw, 56px)', fontWeight: 800, lineHeight: 1.15, marginBottom: 20 }}>
           Premium <span style={{ color: '#eeab34' }}>Chocolate</span><br />& Ice Cream
         </h1>

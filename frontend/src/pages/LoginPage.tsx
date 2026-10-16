@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import logo from "../assets/logo.png";
 import { IonPage, IonContent } from '@ionic/react';
 import { useHistory } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
@@ -35,7 +36,7 @@ const LoginPage: React.FC = () => {
       <IonContent>
         <div style={{ minHeight: '100vh', background: 'linear-gradient(160deg, #064a78, #096bac)', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: 24 }}>
           <div style={{ textAlign: 'center', marginBottom: 32 }}>
-            <img src="/logo.png" alt="Chocoburg" style={{ height: 100 }} />
+            <img src={logo} alt="Chocoburg" style={{ height: 100 }} />
             <p style={{ color: 'rgba(255,255,255,0.7)', fontSize: 14, margin: 0 }}>Chocolates & Ice Cream</p>
           </div>
 
