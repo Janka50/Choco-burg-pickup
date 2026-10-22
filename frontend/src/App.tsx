@@ -8,7 +8,7 @@ import { IonReactRouter } from "@ionic/react-router";
 import { Route, Redirect, useLocation } from "react-router-dom";
 import {
   storefrontOutline, cartOutline, listOutline, personOutline,
-  checkboxOutline, cubeOutline, terminalOutline,
+  checkboxOutline, cubeOutline, terminalOutline, receiptOutline,
 } from "ionicons/icons";
 
 import "@ionic/react/css/core.css";
@@ -30,6 +30,7 @@ import ProfilePage from "./pages/ProfilePage";
 import AdminDashboardPage from "./pages/AdminDashboardPage";
 import AdminInventoryPage from "./pages/AdminInventoryPage";
 import POSPage from "./pages/POSPage";
+import AdminTransactionsPage from "./pages/AdminTransactionsPage";
 
 setupIonicReact();
 
@@ -82,6 +83,7 @@ const AdminTabs: React.FC = () => (
     <IonRouterOutlet>
       <Route path="/admin" component={AdminDashboardPage} exact />
       <Route path="/admin/inventory" component={AdminInventoryPage} exact />
+      <Route path="/admin/transactions" component={AdminTransactionsPage} exact />
       <Route path="/admin/profile" component={ProfilePage} exact />
       <Route path="/pos" component={POSPage} exact />
       <Redirect exact from="/admin/home" to="/admin" />
@@ -99,6 +101,10 @@ const AdminTabs: React.FC = () => (
         <IonIcon icon={terminalOutline} />
         <IonLabel>POS</IonLabel>
       </IonTabButton>
+      <IonTabButton tab="transactions" href="/admin/transactions">
+        <IonIcon icon={receiptOutline} />
+        <IonLabel>Sales</IonLabel>
+      </IonTabButton>
       <IonTabButton tab="profile" href="/admin/profile">
         <IonIcon icon={personOutline} />
         <IonLabel>Profile</IonLabel>
@@ -109,7 +115,7 @@ const AdminTabs: React.FC = () => (
 
 // ── Protected route guards ────────────────────────────────────────────────────
 const CUSTOMER_PATHS = ["/shop", "/cart", "/orders", "/profile"];
-const ADMIN_PATHS = ["/admin", "/admin/inventory", "/admin/profile", "/pos"];
+const ADMIN_PATHS = ["/admin", "/admin/inventory", "/admin/transactions", "/admin/profile", "/pos"];
 
 const ProtectedRoute: React.FC<{
   path: string;

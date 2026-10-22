@@ -95,7 +95,7 @@ const OrderHistoryPage: React.FC = () => {
             <div key={order.id} style={{ background: 'white', borderRadius: 16, padding: 16, marginBottom: 14, boxShadow: '0 2px 8px rgba(0,0,0,0.07)' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 10 }}>
                 <div>
-                  <h3 style={{ fontFamily: 'serif', margin: '0 0 4px', fontSize: 17 }}>Order #{order.id}</h3>
+                  <h3 style={{ fontFamily: 'serif', margin: '0 0 4px', fontSize: 17 }}>Order ORD-{String(order.id).padStart(6, '0')}</h3>
                   <p style={{ margin: 0, fontSize: 12, color: '#4f6b80' }}>
                     {new Date(order.created_at).toLocaleDateString('en-NG', { day: 'numeric', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' })}
                   </p>
@@ -115,7 +115,7 @@ const OrderHistoryPage: React.FC = () => {
               </div>
 
               <div style={{ display: 'flex', justifyContent: 'space-between', fontWeight: 700 }}>
-                <span style={{ color: '#4f6b80', fontSize: 13 }}>{order.items.length} item{order.items.length !== 1 ? 's' : ''}</span>
+                <span style={{ color: '#4f6b80', fontSize: 13 }}>{order.items.length} item{order.items.length !== 1 ? 's' : ''} · {order.status === 'COMPLETED' ? 'Paid' : order.status === 'REJECTED' || order.status === 'CANCELLED' ? 'No payment due' : 'Pay at pickup'}</span>
                 <span style={{ color: '#2b86bf', fontSize: 16 }}>₦{parseFloat(order.total_price).toLocaleString()}</span>
               </div>
 
